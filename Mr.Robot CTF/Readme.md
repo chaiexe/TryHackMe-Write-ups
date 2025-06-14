@@ -1,5 +1,4 @@
 <p align="center">Mr.Robot CTF WriteUp </p>
-![image alt] (https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Mr.Robot%20CTF/Images/1.png?raw=true)
 
 Completed: 5/9/2023
 
