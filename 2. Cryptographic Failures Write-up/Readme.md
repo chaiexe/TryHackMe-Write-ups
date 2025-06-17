@@ -15,8 +15,8 @@ Today I will be studying the second one - Cryptographic Failure using the TryHac
 **Cryptographic failures** occur when developers fail to use strong or proper encryption. This can happen due to improper implementation, misconfiguration, or the improper use of cryptographic algorithms, protocols, or key management practices. The mistake leaves sensitive data (e.g., passwords, credit card details, personal messages, or usernames and passwords) exposed to adversaries for exploitation.
 
 **Examples of What Can Go Wrong:**
-- A website saves your password without hiding it — a hacker can see it clearly.
-- Your personal info is sent over the internet without protection, and someone could intercept it.
+- A website saves your password without hiding it - an advesary can see it clearly.
+- Your personal info is sent over the internet without proper protection, and an malicious user steals your data.
 - A company uses weak encryption that is easy to break.
 
 **Lab Notes:**
@@ -25,7 +25,7 @@ Databases are commonly used to store large amounts of data in a format that allo
 
 In production environments, databases are often hosted on dedicated servers running services like **MySQL** or **MariaDB**. However, databases can also exist as single files on disks known as flat-file databases.
 
-**SQLite** is one of the most widely used and lightweight flat-file database formats. It is portable, supports integration with a variety of programming languages, and includes a built-in command-line interface, sqlite3, which is pre-installed by default on many Linux distributions.
+**SQLite** is one of the most widely used and lightweight flat-file database formats. It is portable, integrates easily with a variety of programming languages, and includes a built-in command-line interface. **sqlite3** is the command-line tool used to interact with SQLite databases and is pre-installed by default on many Linux distributions.
 
 <p align="center">+++++++++</p>
 
@@ -82,7 +82,7 @@ Exploring the (hxxp[:]//10.10.152.187:81/assets) page revealed the web server’
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/2.%20Cryptographic%20Failures%20Write-up/Images/Screenshot%207.png)
 
-Using *DB Browser for SQLite* to further investigate the webapp.db database revealed two tables named sessions and users, indicating the presence of exposed username and password credentials.
+Using *DB Browser for SQLite* to further investigate the webapp.db database revealed two tables named *sessions* and *users*, indicating the presence of exposed username and password credentials.
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/2.%20Cryptographic%20Failures%20Write-up/Images/Screenshot%208.png)
 
@@ -94,13 +94,13 @@ Using Crackstation to crack the admin user’s MD5 hashed password revealed the 
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/2.%20Cryptographic%20Failures%20Write-up/Images/Screenshot%2010.png)
 
-Testing the obtained admin credentials on the web application’s login page (http://10.10.152.187:81/login.php) successfully granted access to the admin account, providing console access and revealing the TryHackMe flag, marking the completion of this write-up.
+Testing the obtained admin credentials on the web application’s login page (hxxp[:]//10.10.152.187:81/login.php) successfully granted access to the admin account, providing console access and revealing the TryHackMe flag, marking the completion of this write-up.
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/2.%20Cryptographic%20Failures%20Write-up/Images/Screenshot%2011.png)
 
 **Lessons Learned:** The developer leaving a note within the page source that pointed to the /assets directory is an example of **Sensitive Data Exposure**. This insecure practice led to the discovery of the SQLite database file.
 
-Upon examining the database contents, the successful cracking of the admin user's hashed password confirmed the presence of a **Cryptographic Failure** vulnerability. This serves as a compelling example of what improper cryptographic security looks like.
+Upon examining the database contents, the successful cracking of the admin user's hashed password confirmed the presence of a **Cryptographic Failure** vulnerability. This serves as a strong example of what improper cryptographic security looks like.
 
 <p align="center">+++++++++</p>
 
