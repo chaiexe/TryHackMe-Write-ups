@@ -1,4 +1,4 @@
-**<p align="center">Hacking Challenge Day 2 - Topic: Cryptographic Failure Vulnerabilities</p>**
+**<p align="center">Hacking Challenge Day 3 - Topic: Command Injection</p>**
 ---
 ![Day 2 of 30 – Hack Documentation Challenge](https://img.shields.io/badge/Day%203%20of%2030-Hack%20Documentation%20Challenge-crimson?style=for-the-badge&logo=tryhackme)
 
