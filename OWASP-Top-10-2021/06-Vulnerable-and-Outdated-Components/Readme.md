@@ -56,13 +56,12 @@ The exploit confirmed being related to the projectworlds php homepage as well.
 The “Online Book Store 1.0 - Unauthenticated Remote Code Execution” exploit code targets a specific file upload vulnerability in the `/admin_add.php` endpoint. It abuses this by uploading a malicious PHP web shell disguised as an image file, which is then placed in the `/bootstrap/img/` directory. The structure is also present in the CSE Bookstore site. This links the vulnerable target to the same source code used in the Projectworlds "Online Book Store" project.
 
 **The script does three things:**
-Uploads the PHP web shell using the `admin_add.php` page.
 
+1) Uploads the PHP web shell using the `admin_add.php` page.
 
-Checks if the upload worked by sending a test command.
+2) Checks if the upload worked by sending a test command.
 
-
-If it worked, it gives you a remote shell where you can type commands like `whoami` to interact with the server.
+3) If it worked, it gives you a remote shell where you can type commands like `whoami` to interact with the server.
 
 <p align="center">+++++++++</p>
 
