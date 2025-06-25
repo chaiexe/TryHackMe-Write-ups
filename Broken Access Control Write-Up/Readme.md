@@ -41,7 +41,7 @@ After successfully logging in, I observed that the URL contained an id parameter
 
 The page displays a list of things I, the authenticated user, need to buy from the store. 
 
-To test for potential Insecure Direct Object References (IDORs), I modified the ‘id’ parameter value to ‘2’ to determine if access to another list or additional data would be returned.
+To test for potential Insecure Direct Object References (IDORs), I modified the `id` parameter value to `2` to determine if access to another list or additional data would be returned.
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Broken%20Access%20Control%20Write-Up/Images/Screenshot%203.png)
 
