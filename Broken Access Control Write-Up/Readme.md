@@ -67,3 +67,8 @@ In a real-world scenario, this flag would represent sensitive data an authentica
 
 **Lessons Learned:**
 This TryHackMe lab taught me to broaden my perspective when searching for Broken Access Control vulnerabilities or IDORs. These vulnerabilities exist when developers improperly code a website and leave Direct Object References unprotected. This oversight allows adversaries to exploit the vulnerability and gain unauthorized access to sensitive data they were never intended to view.
+
+<p align="center">+++++++++</p>
+
+**Resources**:
+- [TryHackMe's OWASP Top 10 - 2021 Room](https://tryhackme.com/room/owasptop102021)
