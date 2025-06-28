@@ -67,7 +67,8 @@ You write an HTML `<script>` tag in your website’s code that references the ex
 
 If the file is altered (even a single character), the hash won't match, and the browser will block it from loading.
 
-Note: When viewing a webpage’s source code, look for `<script>` or `<link>` tags that load files from external sources (like CDNs). Ex:
+**Note:** When viewing a webpage’s source code, look for `<script>` or `<link>` tags that load files from external sources (like CDNs). Ex:
+
 ```
 <script src="https://cdn.example.com/library.min.js"></script>
 ```
@@ -110,7 +111,7 @@ The decoded results are:
 ```
 <p align="center">+++++++++</p>
 
-**<p align="center">💾Data Integrity Failures (Challenge)📁</p>**
+**<p align="center">💾Data Integrity Failures (Challenge)💾</p>**
 
 Navigating to the URL `hxxp[:]//10.10.175.35:8089/ ` opens to the **Cookies4all** web application. Attempting to log in with the username and password `admin` results in the message: “Invalid Credentials. You can also login as "guest" with password "guest".
 
