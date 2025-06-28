@@ -41,6 +41,8 @@ This is how incidents like SolarWinds happened. A trusted software update was se
 
 - Enforce strong access controls on deployment and build systems.
 
+<p align="center">+++++++++</p>
+
 **<p align="center">✨Research Deep-Dive✨</p>**
 
 What is **Subresource Integrity (SRI)**?
