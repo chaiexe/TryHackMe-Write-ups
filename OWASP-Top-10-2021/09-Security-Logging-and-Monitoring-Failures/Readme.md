@@ -43,7 +43,7 @@ Following the THM lab instructions, I downloaded the task file. This is the samp
 
 The logs show dated successful and redirected login attempts from multiple users and their IP addresses. 
 
-![Alt text](1)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/09-Security-Logging-and-Monitoring-Failures/Images/Screenshot%201.png)
 
 The unauthorized redirects are associated with the IP address **49.99.13.16**, while the rest of the login attempts in the logs appear to be successful logins from different IP addresses linked to legitimate users. 
 
