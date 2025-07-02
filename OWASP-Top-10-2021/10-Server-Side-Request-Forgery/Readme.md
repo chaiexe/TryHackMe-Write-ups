@@ -76,11 +76,12 @@ The `#` stops the server from processing the rest of the path, which lets you hi
 
 **Lessons Learned:** 
 
-This lab was such an eye-opener. I knew SSRF was dangerous, but seeing it in action made it real. The fact that I could redirect a server’s trust and steal something as sensitive as an API key, just by listening with `netcat`, showcased how small misconfigurations can have major impacts.
+This lab was such an eye-opener. I knew SSRF was dangerous, but seeing it in action made it real. The fact that I could redirect a server’s trust and steal something as sensitive as an API key, just by listening with `netcat`, showcased how small misconfigurations can have major impacts. 
 
 What stood out most to me was the power of perspective: instead of attacking directly, SSRF works by whispering to the server, “Do it for me.” That mindset shift helped everything click. It also emphasized how important it is to validate input, restrict outbound traffic, and never assume internal services are safe just because they're "inside."
 
 These types of labs help sharpen my awareness and deepens my respect for how layered web security really is.
+
 Studying the OWASP Top 10 web application vulnerabilities has been really insightful and genuinely fun. I’m looking forward to diving into my next topics.
 
 <p align="center">
