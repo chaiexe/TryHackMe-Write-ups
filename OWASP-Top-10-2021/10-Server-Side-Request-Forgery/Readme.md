@@ -10,6 +10,7 @@
 <p align="center">+++++++++</p>
 
 **SSRF** happens when the server makes a request on behalf of the attacker, usually because the application lets users provide URLs or destinations for internal processes without proper validation.
+
 So instead of the server making safe requests to external services (like APIs), the attacker tricks it into making unauthorized or malicious requests, either:
 
 - Internally (e.g. `http://localhost:8080/admin`)
@@ -23,16 +24,19 @@ So instead of the server making safe requests to external services (like APIs), 
 - **Exploit trust relationships between internal services** to access resources or data that are meant to be private or restricted.
 
 - **Communicate with non-HTTP services**, potentially leading to critical attacks like remote code execution (RCE) if the target service is vulnerable.
+  
 Attackers can use SSRF as a pivot point to move laterally within the internal network — mapping out systems, services, and vulnerabilities that are normally hidden from outside access.
 
 In short:
 **SSRF is when the attacker turns the server into their personal proxy** for sending malicious requests. The mindset behind it is "I can’t reach those internal systems myself... but maybe you can, server."
 
+<p align="center">+++++++++</p>
+
 <p align="center">🎲Server-Side Request Forgery (Challenge)🎲</p>
 
 Navigating to the URL: `hxxp[:]//10.10.248.60:8087/` brings up John Woo’s web page. His website showcases his photography portfolio, skills, and a download link to his resume.
 
-![Alt text](x)Screenshot 1
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/10-Server-Side-Request-Forgery/Images/Screenshot%201.png)
 
 Clicking the “Admin Area” prompts the error message “Admin interface only available from localhost!!!”
 
@@ -40,11 +44,11 @@ Hovering over the “Download Resume” button revels where the server parameter
 `secure-file-storage[.]com` within the URL:
 `10.10.248.60:8087/downlaod?server=secure-file-storage.com:8087&id=75482342`
 
-![Alt text](x)screenshot 2
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/10-Server-Side-Request-Forgery/Images/Screenshot%202.png)
 
 By using the `nc -l [port]` command to start a listener on the AttackBox, I was able to make the vulnerable application send the request to my machine instead of the secure file storage service. As a result, the API key `THM{Final Flag}` was exposed in the incoming request.
 
-![Alt text](x)screenshot 3
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/10-Server-Side-Request-Forgery/Images/Screenshot%203.png)
 
 Going the extra mile to gain access to the admin area.
 
@@ -52,7 +56,7 @@ Using the original vulnerable URL and the knowledge that only localhost are perm
 
  `http://10.10.243.25:8087/download?server=localhost:8087%23&id=75482342`
 
-![Alt text](x)screenshot 4
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/10-Server-Side-Request-Forgery/Images/Screenshot%204.png)
 
 <p align="center">+++++++++</p>
 
@@ -71,10 +75,17 @@ The `#` stops the server from processing the rest of the path, which lets you hi
 <p align="center">+++++++++</p>
 
 **Lessons Learned:** 
+
 This lab was such an eye-opener. I knew SSRF was dangerous, but seeing it in action made it real. The fact that I could redirect a server’s trust and steal something as sensitive as an API key, just by listening with `netcat`, showcased how small misconfigurations can have major impacts.
+
 What stood out most to me was the power of perspective: instead of attacking directly, SSRF works by whispering to the server, “Do it for me.” That mindset shift helped everything click. It also emphasized how important it is to validate input, restrict outbound traffic, and never assume internal services are safe just because they're "inside."
+
 These types of labs help sharpen my awareness and deepens my respect for how layered web security really is.
 Studying the OWASP Top 10 web application vulnerabilities has been really insightful and genuinely fun. I’m looking forward to diving into my next topics.
+
+<p align="center">
+  <img src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/10-Server-Side-Request-Forgery/Images/e01865ca96de032c241174b728c9d2b1.gif" width="300" alt="Celebration GIF">
+</p>
 
 <p align="center">+++++++++</p>
 
