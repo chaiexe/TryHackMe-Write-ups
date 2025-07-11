@@ -40,33 +40,61 @@ Backtracking to investigate the `/simple` path, redirected to the homepage of CM
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Simple%20CTF/Images/Screenshot%203.png)
 
-While researching, an unauthenticated blind time-based SQL injection was discovered on MITRE that exploits the `m1_idlist parameter`(CVE-2019-9053).
+While researching, an unauthenticated blind time-based SQL injection was discovered on MITRE that exploits the `m1_idlist parameter` (CVE-2019-9053).
 
 This means the web server can be exploited without logging in, by crafting a GET request.
 
-
-<p align="center">+++++++++</p>
+The Python exploit script from Exploit-DB titled “CMS Made Simple < 2.2.10 - SQL Injection” was used to automate the attack. After installing required dependencies   `termcolor` using `pip`, the script was executed successfully,  extracting account credentials along with a salted password hash.
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Simple%20CTF/Images/Screenshot%204.png)
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Simple%20CTF/Images/Screenshot%205.png)
 
+Using Hashcat, the following command was used to uncover the plaintext password for Mitch’s account:
+```
+hashcat -O -a 0 -m 20 [HASHEDPASSWORD:SALT] /usr/share/wordlists/rockyou.txt
+```
+
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Simple%20CTF/Images/Screenshot%206.png)
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Simple%20CTF/Images/Screenshot%207.png)
 
+Once the password was recovered, it was successfully used to log into the CMS Made Simple admin panel under Mitch’s account, confirming credential validity and granting access to the content management interface.
+
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Simple%20CTF/Images/Screenshot%208.png)
+
+The recovered credentials were then used to establish an SSH connection as Mitch. After logging in, running `sudo -l` revealed the commands Mitch could execute with elevated privileges.
+
+The output revealed that Mitch could execute`/usr/bin/vim` as root without requiring a password.
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Simple%20CTF/Images/Screenshot%209.png)
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Simple%20CTF/Images/Screenshot%2010.png)
 
+Executing Vim with elevated privileges launched the text editor. From there, entering command mode with `:` followed by `!sh` provided a root shell.
+
+Finally, with root access established, retrieving both the `user.txt` and `root.txt` flags was straightforward.
+
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Simple%20CTF/Images/Screenshot%2011.png)
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Simple%20CTF/Images/Screenshot%2012.png)
 
-![Alt text](x)
+**Lessons Learned**
 
-+
+This challenge improved my post-exploitation skills, particularly in researching and identifying the precise exploit and CVE needed for the target.
 
-Currently being edited ...
+It also refreshed my knowledge of using Hashcat for cracking salted hashes, something I hadn’t practiced in a while.
+
+I enjoyed the challenge.
+
+<p align="center">+++++++++</p>
+
+🔒 Out of respect for the learning experience, I’ve chosen not to share the flag answers
+directly. Instead, I’ve documented my full process to support both others and myself in
+understanding the vulnerability.
+
+**Resources**:
+- [TryHackMe's Easy CTF Room](https://tryhackme.com/room/easyctf)
+- [CVE-2019-9053](https://www.cve.org/CVERecord?id=CVE-2019-9053)
+- [EDB-ID:46635](https://www.exploit-db.com/exploits/46635)
+- [Hashcat Manual](https://hashcat.net/wiki/doku.php?id=hashcat)
