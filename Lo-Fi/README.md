@@ -20,28 +20,34 @@ Beginning with an Nmap scan on the target IP `10.10.187.180` revealed two open p
 - 22 (SSH)
 - 80 (HTTP)
 
-The IP led to a Lo-Fi Music homepage that included multiple YouTube videos.
+Navigating to the IP in a browser brought up a Lo-Fi Music homepage with multiple embedded YouTube links.
 
-![Alt text](1)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Lo-Fi/Images/Screenshot%201.png)
 
-Viewing the source code, the href `/?page=` parameters looked the most interesting since it indicates that the site if dynamically including content from a `GET`parameter called *page*.
+Viewing the source code, the hrefs with `/?page=` parameters looked the most interesting since they indicate the site is dynamically including content based on a `GET` parameter called *page*.
 
-![Alt text](2)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Lo-Fi/Images/Screenshot%202.png)
 
-Testing the URL parameters using the `../../../../etc/passwd` successfully revealed sensitive user information confirming local file inclusion.
+Testing the URL parameter with directory traversal `../` had promising results, indicating the webserver might be vulnerable to Local File Inclusion.
 
-![Alt text](3)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Lo-Fi/Images/Screenshot%203.png)
 
-![Alt text](4)
+Next, the `/?page=` parameter was tested with `../../../../etc/passwd`, which revealed multiple user accounts on the server, including root.
 
-![Alt text](5)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Lo-Fi/Images/Screenshot%204.png)
 
-![Alt text](6)
+Unfortunately, navigating to the `../../../../root/root.txt`path did not give a flag.
+
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Lo-Fi/Images/Screenshot%205.png)
+
+However, viewing the `flag.txt` file did! 
+
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Lo-Fi/Images/Screenshot%206.png)
 
 
 **Lessons Learned**
 
-x
+This room was a great refresher on how easily a web server’s directory can be traversed using URL parameters if proper user input validation is missing. I haven’t used this method in a while so it was fun to revisit.
 
 <p align="center">+++++++++</p>
 
