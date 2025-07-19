@@ -16,7 +16,74 @@
 
 <p align="center">+++++++++</p>
 
-x
+Starting off with an `Nmap -sV` scan revealed three open ports:
+
+- 21 (FTP)
+- 22 (SSH)
+- 80 (HTTP)
+
+Navigating to the IP address in a browser displayed a background image themed around Brooklyn Nine-Nine.
+
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Brooklyn-Nine-Nine/Images/Screenshot%201.png)
+
+While investigating the page’s source code, I found an interesting message: 
+
+```
+“<!-- Have you ever heard of steganography? →” 
+```
+
+The message hints that there may be hidden data within the image.
+
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Brooklyn-Nine-Nine/Images/Screenshot%202.png)
+
+I downloaded the image exactly as it was served from the web server using:
+
+```
+curl -O http://10.10.179.190/brooklyn99.jpg
+```
+
+After a bit of research into steganography tools, I decided to try `steghide`, a commonly used tool for embedding and extracting data from images. Using the command:
+
+```
+steghide extract -sf brooklyn99.jpg
+```
+
+I attempted default passwords like `password` and `admin`. Fortunately, one of them worked, and I extracted a file named `note.txt`.
+
+🚨 **Note:** Steghide doesn’t always require a password to extract embedded content.
+
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Brooklyn-Nine-Nine/Images/Screenshot%203.png)
+
+Using the newly obtained credentials to successfully SSH into the `holt` user’s computer allowed access to the user’s home directory, revealing the first flag `user.txt`.
+
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Brooklyn-Nine-Nine/Images/Screenshot%204.png)
+
+After some trial and error exploring ways to escalate privileges, I ran:
+
+```
+Sudo -l
+```
+This revealed that holt could run the following command without a password:
+
+```
+(ALL) NOPASSWD: /bin/nano
+```
+Launching nano with:
+```
+sudo /bin/nano
+```
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Brooklyn-Nine-Nine/Images/Screenshot%205.png)
+
+I then triggered the Execute Command feature using `Ctrl+R`, followed by `Ctrl+X`, which allows for command execution. I typed:
+
+```
+cat /root/root.txt
+```
+And just like that, I retrieved the final root flag, no shell access required!
+
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Brooklyn-Nine-Nine/Images/Screenshot%206.png)
+
+This was another fun and engaging box! The steganography twist was a cool addition, and the privilege escalation path through nano was clever. Definitely a rewarding experience for Day 18.
 
 <p align="center">+++++++++</p>
 
