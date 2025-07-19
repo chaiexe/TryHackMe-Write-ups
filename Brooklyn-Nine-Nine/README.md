@@ -1,9 +1,9 @@
 -----
-**<p align="center">TryHackMe: Brooklyn Nine Ninex</p>**
+**<p align="center">TryHackMe: Brooklyn Nine Nine</p>**
 ---
 
 <p align="center">
-  <img src="x" alt="image alt" width="180" />
+  <img src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Brooklyn-Nine-Nine/Images/Brooklyn%20Nine%20Nine%20Icon.jpeg" alt="image alt" width="150" />
 </p>
 
 [![Day 18 of 30 – Hack Documentation Challenge](https://img.shields.io/badge/Day%2018%20of%2030-Hack%20Documentation%20Challenge-crimson?style=for-the-badge&logo=tryhackme)](https://tryhackme.com)
