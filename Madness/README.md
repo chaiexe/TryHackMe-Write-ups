@@ -2,7 +2,7 @@
 ---
 
 <p align="center">
-  <img src="x" alt="image alt" width="180" />
+  <img src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Madness/Images/Time%20loop.gif" alt="image alt" width="300" />
 </p>
 
 [![Day 19 of 30 – Hack Documentation Challenge](https://img.shields.io/badge/Day%2019%20of%2030-Hack%20Documentation%20Challenge-crimson?style=for-the-badge&logo=tryhackme)](https://tryhackme.com)
