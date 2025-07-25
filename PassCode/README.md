@@ -66,4 +66,6 @@ x
 
 <p align="center">+++++++++</p>
 
-TBD....
+<p align="center">
+  <img src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/PassCode/Images/TBD.gif" alt="image alt" width="400" />
+</p>
