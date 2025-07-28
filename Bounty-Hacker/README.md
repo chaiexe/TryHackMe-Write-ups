@@ -2,7 +2,7 @@
 ---
 
 <p align="center">
-  <img src="c" alt="image alt" width="100" />
+  <img src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Bounty-Hacker/Images/RoomIcon.jpeg" alt="image alt" width="200" />
 </p>
 
 [![Day 21 of 30 – Hack Documentation Challenge](https://img.shields.io/badge/Day%2021%20of%2030-Hack%20Documentation%20Challenge-crimson?style=for-the-badge&logo=tryhackme)](https://tryhackme.com)
