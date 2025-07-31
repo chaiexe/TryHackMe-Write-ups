@@ -29,4 +29,8 @@ Since common web ports like 80 or 443 were not open, there's no need to attempt 
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Evil-GPT/Images/Screenshot%201.png)
 
+Following the room’s instructions to connect to the target machine using the `nc 10.201.113.240 1337` command connects to what seems to be an AI command executor.
+
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Evil-GPT/Images/Screenshot%202.png)
+
 Write-up pending ~
