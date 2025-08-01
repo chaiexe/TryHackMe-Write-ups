@@ -151,7 +151,7 @@ To execute the exploit, I saved it as a Python file and granted it execute permi
 
 **Lessons Learned**
 
-This room sharpened my attention to detail, teaching me to examine even seemingly irrelevant elements, like images found outside the target machine.. I learned how to analyze an image’s metadata, specifically its head and tail, and how to modify an image’s header. I also became familiar with the appearance and function of ROT13 ciphers, and improved my ability to use Python to automate repetitive tasks.
+This room sharpened my attention to detail, teaching me to examine even seemingly irrelevant elements, like images found outside the target machine. I learned how to analyze an image’s metadata, specifically its head and tail, and how to modify an image’s header. I also became familiar with the appearance and function of ROT13 ciphers, and improved my ability to use Python to automate repetitive tasks.
 
 <p align="center">+++++++++</p>
 
