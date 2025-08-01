@@ -33,4 +33,30 @@ Following the room’s instructions to connect to the target machine using the `
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Evil-GPT/Images/Screenshot%202.png)
 
-Write-up pending ~
+Testing out the Ai command executer, I entered in the command `ls /root` and noticed the Ai interpreted the command as `ls -la /root` and displayed the existing contents of the `/root` directory. Among the list included a `flag.txt` file.
+
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Evil-GPT/Images/Screenshot%203.png)
+
+After some testing, I learned the generator responds better to the user's input commands when they are wrapped in double quotes and sent via the `echo` command.
+
+For example: 
+
+User: `echo "id"`
+Ai command executor interpretation: `sudo id` 
+
+With that in mind, I issued the command `echo "cat /root/flag.txt"` to retrieve the room's root flag.
+
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Evil-GPT/Images/Screenshot%204.png)
+
+<p align="center">+</p>
+
+**Lessons Learned**
+
+This room highlighted how improperly sandboxed or overly trusted AI command executors can become dangerous attack surfaces. Wrapping commands in `echo "..."` triggered more effective execution, revealing how different input formats can greatly influence AI behavior.
+
+<p align="center">+++++++++</p>
+
+🔒 Out of respect for the learning experience, I’ve chosen not to share the flag answers directly. Instead, I’ve documented my full process to support both others and myself in understanding the vulnerability.
+
+**Resources**:
+- [TryHackMe's Evil-GPT Room](https://tryhackme.com/room/hfb1evilgpt)
