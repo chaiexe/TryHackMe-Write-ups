@@ -21,11 +21,11 @@ In penetration testing (pentesting), LLMs (Large Language Models) are AI models 
 
 <p align="center">+++++++++</p>
 
-Starting of with an Nmap scan, I discovered one open port:
+I began by running an Nmap scan and discovered one open port:
 
 - 22/tcp SSH OpenSSH 8.9p1 Ubuntu 3ubuntu0.11 (Ubuntu Linux; protocol 2.0)
 
-Since common web ports like 80 or 443 were not open, there's no need to attempt accessing the IP via a web browser.
+Since no common web ports like 80 or 443 were open, there was no need to access the target via a web browser.
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Evil-GPT/Images/Screenshot%201.png)
 
