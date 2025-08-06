@@ -6,13 +6,15 @@
 src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Chocolate-Factory/Images/golden%20ticket.png" alt="image alt" width="300" />
 </p>
 
+**<p align="center">"Welcome to Willy Wonka's Chocolate Factory!"</p>**
+
 [![Day 24 of 30 – Hack Documentation Challenge](https://img.shields.io/badge/Day%2024%20of%2030-Hack%20Documentation%20Challenge-crimson?style=for-the-badge&logo=tryhackme)](https://tryhackme.com)
 
 **Topic:** Web application pentesting
 
 **Completed:** 8/4/2025
 
-“A Charlie And The Chocolate Factory themed room, revisit Willy Wonka's chocolate factory!”
+“A Charlie And The Chocolate Factory themed room. This room was designed so that hackers can revisit the Willy Wonka's Chocolate Factory and meet Oompa Loompas.”
 
 <p align="center">+++++++++</p>
 
