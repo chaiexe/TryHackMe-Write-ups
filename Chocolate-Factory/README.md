@@ -146,6 +146,7 @@ User charlie may run the following commands on [machine]:
 ![Alt text](15)
 
 Since the rule explicitly prevents charlie from running the command as root, I couldn’t escalate privileges this way.
+
 I then listed all system users using the command:
 ```
 cat /etc/passwd | cut -d: -f1
@@ -156,8 +157,9 @@ Among the results was, of course, the root user. Despite the earlier !root restr
 sudo -u root vi
 ```
 
-Surprisingly, this bypassed the restriction and opened up vi as root — possibly due to a misconfiguration in the system's sudoers file.
-Inside vi, I entered interactive mode by pressing Shift + : and ran the following to spawn a root shell:
+Surprisingly, this bypassed the restriction and opened up vi as root, possibly due to a misconfiguration in the system's sudoers file.
+
+Inside vi, I entered interactive mode by pressing `Shift` + `:` and ran the following to spawn a root shell:
 ```
 :!/bin/bash
 ```
@@ -166,7 +168,7 @@ This escalated me to root access.
 
 ![Alt text](16)
 
-Inside the `/root/` directory, I found a file named root.py, which required a key to access. Using the previously obtained key granted access to the final flag, along with an ASCII message that read:
+Inside the `/root/` directory, I found a file named root.py, which required a key to access. Using the previously obtained key (include the full key beginning with `b'-` ending with `='`) granted access to the final flag, along with an ASCII message that read:
 ```
 # python root.py
 Enter the key: [INSERT KEY] 
@@ -206,3 +208,4 @@ This room was a valuable exercise in chaining multiple enumeration and privilege
 
 **Resources**:
 - [TryHackMe's Chocolate Factory Room](https://tryhackme.com/room/chocolatefactory)
+- [GTFOBins](https://gtfobins.github.io/)
