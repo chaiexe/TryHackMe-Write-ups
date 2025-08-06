@@ -3,7 +3,7 @@
 
 <p align="center">
 <img
-src=" x " alt="image alt" width="180" />
+src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Chocolate-Factory/Images/golden%20ticket.png" alt="image alt" width="300" />
 </p>
 
 [![Day 24 of 30 – Hack Documentation Challenge](https://img.shields.io/badge/Day%2024%20of%2030-Hack%20Documentation%20Challenge-crimson?style=for-the-badge&logo=tryhackme)](https://tryhackme.com)
