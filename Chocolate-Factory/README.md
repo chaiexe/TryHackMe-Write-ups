@@ -54,7 +54,7 @@ http://localhost/key_rev_key <- You will find the key here!!!
 
 This hinted that the system might host a local web page not directly accessible from the outside.
 
-![Alt text](1)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Chocolate-Factory/Images/Screenshot%201.png)
 
 After my initial enumeration, I downloaded a `.jpg` image from the TryHackMe lab homepage, suspecting it might contain hidden information or steganographic data. I examined the image using `exiftool`, `binwalk`, `strings`, and `steghide`, but these checks revealed no hidden files or clues.
 
@@ -64,11 +64,11 @@ Unfortunately, no accessible directories or files were discovered.
 
 Next, I revisited the FTP service. Using anonymous login, I was able to access and download a `.jpg` file named `gum_room.jpg`.
 
-![Alt text](2)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Chocolate-Factory/Images/Screenshot%202.png)
 
 The image was simply a photo of many sticks of gum.
 
-![Alt text](3)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Chocolate-Factory/Images/Screenshot%203.png)
 
 I decided to dig deeper using steghide, and ran:
 ```
@@ -76,7 +76,7 @@ steghide extract -sf gum_room.jpg
 ```
 Surprisingly, it did not require a passphrase and successfully extracted a text file named `b64.txt`.
 
-![Alt text](4)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Chocolate-Factory/Images/Screenshot%204.png)
 
 The name b64.txt hinted that the contents might be Base64-encoded. I decoded it using:
 ```
@@ -85,7 +85,7 @@ cat b64.txt | base64 -d
 
 This revealed a username and a hashed password.
 
-![Alt text](5)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Chocolate-Factory/Images/Screenshot%205.png)
 
 Using Gobuster to enumerate the website again, this time with a more extensive wordlist and file extension options:
 ```
@@ -93,13 +93,13 @@ Gobuster dir -u http://10.201.87.251 -w /usr/share/wordlists/dirbuster/directory
 ```
 The directories `/home.php` and `/validate.php` were uncovered.
 
-![Alt text](6)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Chocolate-Factory/Images/Screenshot%206.png)
 
 Navigating to `/home.php` led to a command execution page. I tested it for command injection by running a basic `id` command followed by `ls -la /home/charlie`. The results confirmed that the page was vulnerable and lacked proper access controls.
 
-![Alt text](7)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Chocolate-Factory/Images/Screenshot%207.png)
 
-![Alt text](8)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Chocolate-Factory/Images/Screenshot%208.png)
 
 To escalate this into a shell, I prepared a reverse shell payload and set up a Netcat listener on port 5555. The payload used was:
 ```
@@ -112,30 +112,30 @@ python3 -c 'import pty; pty.spawn("/bin/bash")'
 
 I also located the `key_rev_key` file mentioned earlier.
 
-![Alt text](9)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Chocolate-Factory/Images/Screenshot%209.png)
 
-With local access established, I was able to read the contents of the key_rev_key file, which revealed a key.
+With local access established, I was able to read the contents of the `key_rev_key` file, which revealed a key.
 
-![Alt text](10)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Chocolate-Factory/Images/Screenshot%2010.png)
 
 Next, I explored the `/validate.php` file. Viewing its contents exposed username and password credentials, likely used for authentication on another service.
 
-![Alt text](11)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Chocolate-Factory/Images/Screenshot%2011.png)
 
 While navigating Charlie’s home directory, I discovered a file named `teleport`, which turned out to be a private RSA key!
 
-![Alt text](12)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Chocolate-Factory/Images/Screenshot%2012.png)
 
-I copied the RSA key into a local text file, saved it as charlie_rsa, and used the following command to secure it with the proper file permissions:
+I copied the RSA key into a local text file, saved it as `charlie_rsa`, and used the following command to secure it with the proper file permissions:
 ```
 chmod 600 charlie_rsa
 ```
 
-![Alt text](13)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Chocolate-Factory/Images/Screenshot%2013.png)
 
 Using this key, I was able to SSH into the machine as the user Charlie. Once logged in, I successfully located and captured the `user.txt` flag within Charlie’s home directory.
 
-![Alt text](14)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Chocolate-Factory/Images/Screenshot%2014.png)
 
 To begin the privilege escalation phase, I ran the sudo -l command to determine which commands the current user (Charlie) could execute with sudo privileges without needing a password. The output revealed that charlie could execute /usr/bin/vi, but not as root due to the !root restriction:
 ```
@@ -143,7 +143,7 @@ User charlie may run the following commands on [machine]:
 (ALL : !root) NOPASSWD: /usr/bin/vi
 ```
 
-![Alt text](15)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Chocolate-Factory/Images/Screenshot%2015.png)
 
 Since the rule explicitly prevents charlie from running the command as root, I couldn’t escalate privileges this way.
 
@@ -166,41 +166,19 @@ Inside vi, I entered interactive mode by pressing `Shift` + `:` and ran the foll
 
 This escalated me to root access.
 
-![Alt text](16)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Chocolate-Factory/Images/Screenshot%2016.png)
 
-Inside the `/root/` directory, I found a file named root.py, which required a key to access. Using the previously obtained key (include the full key beginning with `b'-` ending with `='`) granted access to the final flag, along with an ASCII message that read:
-```
-# python root.py
-Enter the key: [INSERT KEY] 
-__   __               _               _   _                 _____ _          
-\ \ / /__  _   _     / \   _ __ ___  | \ | | _____      __ |_   _| |__   ___ 
- \ V / _ \| | | |   / _ \ | '__/ _ \ |  \| |/ _ \ \ /\ / /   | | | '_ \ / _ \
-  | | (_) | |_| |  / ___ \| | |  __/ | |\  | (_) \ V  V /    | | | | | |  __/
-  |_|\___/ \__,_| /_/   \_\_|  \___| |_| \_|\___/ \_/\_/     |_| |_| |_|\___|
-                                                                             
-  ___                              ___   __  
- / _ \__      ___ __   ___ _ __   / _ \ / _| 
-| | | \ \ /\ / / '_ \ / _ \ '__| | | | | |_  
-| |_| |\ V  V /| | | |  __/ |    | |_| |  _| 
- \___/  \_/\_/ |_| |_|\___|_|     \___/|_|   
-                                               ____ _                     _       _       
- / ___| |__   ___   ___ ___ | | __ _| |_ ___ 
-| |   | '_ \ / _ \ / __/ _ \| |/ _` | __/ _ \
-| |___| | | | (_) | (_| (_) | | (_| | ||  __/
- \____|_| |_|\___/ \___\___/|_|\__,_|\__\___|
-                                             
- _____          _                    
-|  ___|_ _  ___| |_ ___  _ __ _   _  
-| |_ / _` |/ __| __/ _ \| '__| | | | 
-|  _| (_| | (__| || (_) | |  | |_| | 
-|_|  \__,_|\___|\__\___/|_|   \__, | 
-                              |___/
-flag{*********************************}
+Inside the `/root/` directory, I discovered a file named `root.py`, which was supposed to generate the final flag upon entering a key. However, the script appeared to be broken or incomplete, and none of the suggested options or methods worked to execute it properly. After researching alternative solutions, I used an online Fernet decoder. I entered the `encrypted_mess` value from the script into the token field and used the previously discovered key, removing the `b` prefix, in the key field. This approach successfully decrypted the final flag, allowing me to complete the challenge despite the bug.
 
-```
-Lessons Learned:
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Chocolate-Factory/Images/Screenshot%2017.png)
 
-This room was a valuable exercise in chaining multiple enumeration and privilege escalation techniques together, from leveraging a vulnerable web server, to uncovering credentials, and pivoting via SSH. It reinforced the importance of staying curious and thorough when navigating complex file structures and hidden clues. That said, I do wish the room had been more stable towards the final stage, as the buggy behavior near the end made capturing the root flag feel slightly less satisfying than it could have been. Still, it was a good reminder to stay patient and adaptable, especially when challenges don’t go as expected.
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Chocolate-Factory/Images/Screenshot%2018.png)
+
+<p align="center">+</p>
+
+**Lessons Learned:**
+
+This room was a valuable exercise in chaining multiple enumeration and privilege escalation techniques together, from leveraging a vulnerable web server, to uncovering credentials, and pivoting via SSH. That said, I do wish the room had been more stable towards the final stage, as the buggy behavior near the end made capturing the root flag feel slightly less satisfying than it could have been. The root flag retrieval ended up being more of a workaround than a clean finish. Still, it was a good reminder to stay patient and adaptable, especially when challenges don’t go as expected.
 
 <p align="center">+++++++++</p>
 
@@ -209,3 +187,4 @@ This room was a valuable exercise in chaining multiple enumeration and privilege
 **Resources**:
 - [TryHackMe's Chocolate Factory Room](https://tryhackme.com/room/chocolatefactory)
 - [GTFOBins](https://gtfobins.github.io/)
+- [Fernet (Decode)](https://asecuritysite.com/encryption/ferdecode)
