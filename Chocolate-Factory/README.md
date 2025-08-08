@@ -137,7 +137,7 @@ Using this key, I was able to SSH into the machine as the user Charlie. Once log
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Chocolate-Factory/Images/Screenshot%2014.png)
 
-To begin the privilege escalation phase, I ran the sudo -l command to determine which commands the current user (Charlie) could execute with sudo privileges without needing a password. The output revealed that charlie could execute /usr/bin/vi, but not as root due to the !root restriction:
+To begin the privilege escalation phase, I ran the `sudo -l` command to determine which commands the current user (Charlie) could execute with sudo privileges without needing a password. The output revealed that charlie could execute `/usr/bin/vi`, but not as root due to the !root restriction:
 ```
 User charlie may run the following commands on [machine]:
 (ALL : !root) NOPASSWD: /usr/bin/vi
