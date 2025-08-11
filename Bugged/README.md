@@ -23,8 +23,7 @@ Starting off, I ran an Nmap scan to identify open services on the target:
 nmap -sC -sV 10.201.54.62
 ```
 The scan revealed only one open port:
-22/tcp – SSH (OpenSSH 8.2p1 Ubuntu 4ubuntu0.13)
-
+- 22/tcp – SSH (OpenSSH 8.2p1 Ubuntu 4ubuntu0.13)
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Bugged/Images/Screenshot%201.png)
 
