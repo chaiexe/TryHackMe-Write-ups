@@ -37,9 +37,9 @@ Navigating to the website ( hxxp[:]//10.10.242.121:82/ ) presents the Cowsay Onl
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/03-Injection/Images/Screenshot%201.png)
 
 Choosing *dragon* as the cow type and *hi* as the message input resulted in an ASCII image of a dragon echoing the word “hi.” This interaction also updated the URL to:
-
+```
 hxxp[:]//10.10.242.121:82/?cow=dragon&mooing=hi
-
+```
 These URL parameters are user-controlled and can be tested for potential command injection vulnerabilities.
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/03-Injection/Images/Screenshot%202.png)
