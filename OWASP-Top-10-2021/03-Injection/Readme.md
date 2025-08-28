@@ -133,9 +133,9 @@ Using the `$(cd /; uname -a)`command resulted in detailed kernel information, in
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/03-Injection/Images/Screenshot%2011.png)
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/03-Injection/Images/Screenshot%2012.png)
-
 Finally, command `$(cd /; cat /etc/os-release)`displayed the Linux distribution and version information in a readable format.
+
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/03-Injection/Images/Screenshot%2012.png)
 
 <p align="center">+++++++++</p>
 
