@@ -10,7 +10,8 @@
 
 <p align="center">+++++++++</p>
 
-**Insecure design** happens when the foundation or structure of an application is flawed in a way that creates security risks. It’s not about coding mistakes or misconfigurations, but rather about poor planning or missing safeguards built into the system from the beginning.
+**Insecure design** refers to flaws in the foundation or logic of an application that create security weaknesses. It’s not about coding mistakes or misconfigurations, but rather about poor planning or missing safeguards built into the system from the beginning.
+
 It’s like building a house without locks on the doors. The locks were never broken, but no one ever thought to add them in the first place.
 
 **Remediation:**
