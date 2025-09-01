@@ -3,7 +3,7 @@
 
 <p align="center">
 <img
-src="x" alt="image alt" width="150" />
+src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Hydra/Images/Room%20Icon.png" alt="image alt" width="150" />
 </p>
 
 📍This write-up is part of my entry into TryHackMe’s Hack2Win Challenge: Room 1, Day 1.
@@ -26,7 +26,7 @@ Hydra automates brute-force attacks by rapidly testing a list of passwords again
 
 Weak or default passwords (like admin:password) are easily guessed from massive wordlists, so always use strong, unique credentials and change defaults immediately.
 
-Hydra can be installed on Ubuntu with `apt install hydra`, on Fedora with `dnf install hydra`, or downloaded from its official THC-Hydra repository.
+Finally, Hydra can be installed on Ubuntu with `apt install hydra`, on Fedora with `dnf install hydra`, or downloaded from its official THC-Hydra repository.
 
 
 **<p align="center">Task 2: Using Hydra (Challenge)</p>**
