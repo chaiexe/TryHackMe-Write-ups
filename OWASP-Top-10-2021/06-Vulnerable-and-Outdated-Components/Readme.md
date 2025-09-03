@@ -10,7 +10,7 @@
 
 <p align="center">+++++++++</p>
 
-**Vulnerable and Outdated Components:** This vulnerability occurs when applications use components (e.g., libraries, frameworks, CMS platforms) with known security flaws due to being outdated or unpatched.
+**Vulnerable and Outdated Components:** This vulnerability occurs when web applications use components (e.g., libraries, frameworks, CMS platforms) with known security flaws due to being outdated or unpatched.
 
 **Example:** A company running an outdated version of WordPress (e.g., 4.6) is exposed to known vulnerabilities like unauthenticated Remote Code Execution (RCE). Tools like WPScan can identify such versions, and public exploit databases (like Exploit-DB) often contain ready-to-use exploits.
 
