@@ -75,7 +75,7 @@ Running the exploit using `python3` successfully opened a reverse interactive sh
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/06-Vulnerable-and-Outdated-Components/Images/Screenshot%207.png)
 
-Running the whoami and pwd commands confirmed that I had access as the web server user and that I was inside the /htdocs/bootstrap/img directory of the Apache server.
+Running the `whoami` and `pwd` commands confirmed that I had access as the web server user and that I was inside the `/htdocs/bootstrap/img` directory of the Apache server.
 
 Finally, using the cat command to read the contents of `/opt/flag.txt` revealed the hidden flag, successfully completing the lab.
 
