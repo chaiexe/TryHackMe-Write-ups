@@ -10,17 +10,17 @@
 
 <p align="center">+++++++++</p>
 
-**Vulnerable and Outdated Components:** This vulnerability occurs when web applications use components (e.g., libraries, frameworks, CMS platforms) with known security flaws due to being outdated or unpatched.
+**Vulnerable and Outdated Components** are weaknesses that occur when web applications depend on old or unpatched software, leaving them exposed to known security exploits.
 
-**Example:** A company running an outdated version of WordPress (e.g., 4.6) is exposed to known vulnerabilities like unauthenticated Remote Code Execution (RCE). Tools like WPScan can identify such versions, and public exploit databases (like Exploit-DB) often contain ready-to-use exploits.
+**Example:** A company running an outdated version of WordPress (version 4.6) is exposed to known vulnerabilities like unauthenticated Remote Code Execution (RCE). Tools like WPScan can identify such versions, and public exploit databases (like Exploit-DB) often contain ready-to-use exploits.
 
-**Remediation:** Keep software and third-party components up to date to prevent attackers from exploiting known vulnerabilities.
+**Remediation:** Regularly update software and third-party components, apply patches, and monitor for new vulnerability disclosures to prevent attackers from exploiting known vulnerabilities.
 
 <p align="center">+</p>
 
 **<p align="center">📍Vulnerable and Outdated Components (Challenge)📍</p>**
 
-**Objective:** Confirm the contents of the existing /opt/flag.txt file on the vulnerable web application.
+**Objective:** Confirm the contents of the existing `/opt/flag.txt` file on the vulnerable web application.
 
 Visiting the target page `hxxp[:]//10.10.186.176:84` brings up the CSE Bookstore homepage, which displays the following message:
 
