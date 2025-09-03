@@ -65,7 +65,7 @@ The “Online Book Store 1.0 - Unauthenticated Remote Code Execution” exploit 
 
 <p align="center">+++++++++</p>
 
-Next, I saved the RCE exploit as a `.py` file and made it executable using the `chmod` command. This allows me to run the Python script directly from the local terminal.
+Next, I saved the RCE exploit as a `.py` file and made it executable using the `chmod +x` command, which adds execute permissions to the file. This allows me to run the Python script directly from the local terminal.
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/06-Vulnerable-and-Outdated-Components/Images/Screenshot%206.png)
 
