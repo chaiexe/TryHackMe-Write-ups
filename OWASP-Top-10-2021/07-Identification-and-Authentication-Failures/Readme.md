@@ -12,13 +12,13 @@
 
 **Identification and Authentication Failures** occur when a web application doesn’t properly confirm a user's identity or protect login mechanisms, making it easier for attackers to gain unauthorized access.
 
-**Authentication** is the process that enables users to access web applications by confirming their identity. The most common method involves entering a username and password, which the server checks for validity. If the credentials are correct, the server issues a **session cookie** to the user’s browser. This cookie is essential because HTTP(S) is a stateless protocol. This means each request is independent and doesn’t inherently retain user information. By attaching a session cookie, the server can maintain the user's session and reliably associate incoming requests with the correct identity.
+**Authentication** is the process that allows users to access web applications by confirming their identity. The most common method involves entering a username and password, which the server checks for validity. If the credentials are correct, the server issues a **session cookie** to the user’s browser. This cookie is essential because HTTP(S) is a stateless protocol. This means each request is independent and doesn’t inherently retain user information. By using a session cookie, the server can maintain the user’s session and accurately associate incoming requests with the correct identity.
 
 **Some common issues with authentication systems include:**
 
-   - **Brute Force Attacks:** If a website uses usernames and passwords, an attacker might try lots of different combinations until they guess the right one. Without limits on login attempts, this can work.
+   - **Brute Force Attacks:** Attackers try many username-password combinations until they find the correct one. Without limits on login attempts, this can be highly effective.
 
-   - **Weak Passwords:** If users are allowed to choose simple passwords like “password1,” attackers can guess them easily and break into accounts. That’s why strong password rules are important.
+   - **Weak Passwords:** Simple passwords like “password1” are easy to guess, making accounts vulnerable. That’s why strong password rules are important.
 
    - **Weak Session Cookies:** Session cookies help the server remember who a user is. But if the cookie values are easy to guess, an attacker could make their own and pretend to be someone else.
 
@@ -30,14 +30,13 @@
 
 **Researched Answer:**
 
-Session cookies are usually stored in the browser’s memory (RAM) and are not written to disk. Because of this, they exist only for the duration of the browsing session—meaning they are deleted when the browser is closed.
-More specifically:
+Session cookies are usually stored in the browser’s memory (RAM) and are not written to disk. Because of this, they exist only for the duration of the browsing session, meaning they are deleted when the browser is closed. More specifically:
 
-They are stored in the browser’s cookie storage, accessible through developer tools (`Application` tab in Chrome or `Storage` in Firefox).
+They are stored in the browser’s cookie storage, accessible through developer tools (`Application` tab in Chrome or `Storage` tab in Firefox).
 
 Unlike persistent cookies, session cookies do not have an expiration date set, so the browser knows to treat them as temporary.
 
-This makes them more secure in some cases, especially on shared or public computers, since they don’t persist after the session ends—though they can still be vulnerable if not handled properly (e.g., no `HttpOnly` or `Secure` flags).
+This makes them more secure in some cases, especially on shared or public computers, since they do not persist after the session ends. However, they can still be vulnerable if not handled properly, such as when the `HttpOnly` or `Secure` flags are not set.
 
 <p align="center">+++++++++</p>
 
@@ -59,15 +58,15 @@ Navigating to the target web application URL `hxxp[:]// 10.10.82.56:8088` opens 
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/07-Identification-and-Authentication-Failures/Images/Screenshot%201.png)
 
-**Next Step:** On the registration page, I’ll attempt to register the username `darren` with a leading space `" darren"` to exploit the logic flaw and gain access to an account with existing privileges. A dummy email and password will also be used to complete the registration process.
+**Next Step:** On the registration page, I’ll attempt to register the username `darren` with a leading space `" darren"` to exploit the logic flaw and gain access to an existing account using tester credentials.
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/07-Identification-and-Authentication-Failures/Images/Screenshot%202.png)
 
-The message “User registered successfully!” confirmed that the account was created successfully.
+The message “User registered successfully!” confirmed that the account was created. Logging in with these credentials granted access to Darren’s account, revealing the first flag. This showed that the web application had poor authentication practices, as the newly created account should not have been identified or treated as an existing user.
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/07-Identification-and-Authentication-Failures/Images/Screenshot%203.png)
 
-Logging in with the newly registered credentials granted access to Darren’s account, revealing the first flag. The flag represents sensitive data that shouldn’t have been exposed to an unauthorized user.
+Logging in with the newly registered credentials granted access to Darren’s account, revealing the first flag. The flag represents sensitive data that should not have been exposed to an unauthorized user.
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/07-Identification-and-Authentication-Failures/Images/Screenshot%204.png)
 
