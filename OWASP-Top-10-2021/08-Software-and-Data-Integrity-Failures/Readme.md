@@ -12,7 +12,7 @@
 
 **Why it matters:** Attackers can exploit these weaknesses to spread malicious code through the very tools developers rely on. This often leads to large-scale compromises, where many systems are affected at once.
 
-**Analogy:** Think of it like downloading an update for your phone, but the update isn’t checked to make sure it’s really from the official source—if it’s fake, your whole device could be at risk.
+**Analogy:** Think of it like downloading an update for your phone, but the update isn’t checked to make sure it’s really from the official source, if it’s fake, your whole device could be at risk.
 
 <p align="center">+</p>
 
