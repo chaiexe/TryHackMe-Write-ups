@@ -8,21 +8,18 @@
 
 <p align="center">+++++++++</p>
 
-**Software and Data Integrity Failures** occur when applications rely on untrusted sources for updates, plugins, dependencies, or critical data without verifying their integrity. This opens the door for attackers to manipulate that data and compromise the system.
+**Software and Data Integrity Failures** are weaknesses in web applications that occur when applications rely on untrusted sources for updates, plugins, dependencies, or critical data without verifying their integrity. In other words, the web application assumes outside sources are safe, even though attackers could have secretly changed them.
 
-**Analogy:**
-You’re baking a cake using pre-mixed flour from a supplier, but you don’t check if it’s been tampered with. Someone could sneak in poison and you’d never know until it’s too late.
+**Why it matters:** Attackers can exploit these weaknesses to spread malicious code through the very tools developers rely on. This often leads to large-scale compromises, where many systems are affected at once.
+
+**Analogy:** You’re baking a cake using pre-mixed flour from a supplier, but you don’t check if it’s been tampered with. Someone could sneak in poison and you’d never know until it’s too late.
 
 <p align="center">+</p>
 
 **Real-World Example**
-A web app loads a JavaScript file from a third-party CDN.
 
-The app doesn't verify the integrity of the file using something like Subresource Integrity (SRI).
+Imagine a web application that loads a JavaScript file from a third-party Content Delivery Network (CDN). If the app doesn’t verify the file’s integrity with a method like Subresource Integrity (SRI), attackers can tamper with it. If the CDN is compromised, every user visiting the site unknowingly runs the malicious script.
 
-The CDN gets compromised.
-
-Now every user visiting your site unknowingly runs the malicious script.
 This is how incidents like SolarWinds happened. A trusted software update was secretly modified and used to infiltrate government and private networks worldwide.
 
 <p align="center">+</p>
@@ -61,7 +58,7 @@ You write an HTML `<script>` tag in your website’s code that references the ex
 ```
 - `src:` Where the browser gets the file from (the CDN link).
 
-- `integrity`: This is where you put the hash — it tells the browser what the file is supposed to look like.
+- `integrity`: This is where you put the hash, it tells the browser what the file is supposed to look like.
 
 - `crossorigin="anonymous"`: This is often used with SRI to avoid issues with cross-origin requests.
 
@@ -82,21 +79,21 @@ Without integrity checks, the CDN could be compromised and malicious code would 
 
 **Notes:**
 
-When a user logs into an application, they will be assigned some sort of session token that will need to be saved on the browser for as long as the session lasts. This token will be repeated on each subsequent request so that the web application knows who we are. These session tokens can come in many forms but are usually assigned via cookies. **Cookies* are key-value pairs that a web application will store on the user's browser and that will be automatically repeated on each request to the website that issued them.
+When a user logs into an application, they will be assigned some sort of session token that will need to be saved on the browser for as long as the session lasts. This token will be repeated on each following request so that the web application knows who we are. These session tokens can come in many forms but are usually assigned via cookies. **Cookies** are key-value pairs that a web application will store on the user's browser and that will be automatically repeated on each request to the website that issued them.
 
 To help prevent cookie tampering, **JSON Web Tokens (JWTs)** were introduced. JWTs are simple tokens that store key-value pairs and include a built-in integrity check. This means the server can trust that the data inside the token hasn’t been altered by the user. The token is signed, so if someone tries to change its contents, the signature won’t match and the token will be rejected.
 
 A **JWT (JSON Web Token)** has three parts:
 
-1. Header – says this is a JWT and tells which signing algorithm is used (like HS256).
+1. Header – indicates this is a JWT and specifies the signing algorithm used (like HS256).
 
-2. Payload – holds the actual data (like user info) in key-value pairs.
+2. Payload – contains the actual data, such as user information, in key-value pairs.
 
-3. Signature – is like a security seal that proves the data hasn’t been changed.
+3. Signature – acts like a security seal, proving the data hasn’t been changed.
 
-The signature is made using a secret key that only the server knows. If someone tries to change the data in the payload, the signature won’t match anymore — and the server will know the token was tampered with. This keeps the token’s data safe and trustworthy.
+The signature is made using a secret key that only the server knows. If someone tries to change the data in the payload, the signature won’t match anymore, and the server will know the token was tampered with. This keeps the token’s data safe and trustworthy.
 
-**Note:** “The secret key held by the server only, which means that if you change the payload, you won't be able to generate the matching signature unless you know the secret key.” -THM
+**Note:** “The secret key is held by the server only, which means that if you change the payload, you won't be able to generate the matching signature unless you know the secret key.” - THM
 
 <p align="center">+</p>
 
