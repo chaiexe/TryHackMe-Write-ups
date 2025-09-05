@@ -9,24 +9,24 @@
 
 <p align="center">+++++++++</p>
 
-This vulnerability happens when a web application doesn’t properly record or monitor important security events, like failed logins, suspicious activity, or system errors. Without good logging and alerting, attackers can break in, move around, or steal data without being noticed.
+Security Logging and Monitoring Failures are vulnerabilities in web applications where important security events are not properly recorded or monitored. These events can include failed logins, suspicious activity, or system errors. Without strong logging and alerting, attackers can break in, move around, or steal data without being noticed.
 
 **Why it matters:**
 
- If there's no record of what’s happening or no alerts when something suspicious occurs, security teams won’t know there's a problem until it’s too late.
+If there's no record of what’s happening or no alerts when something suspicious occurs, security teams won’t know there's a problem until it’s too late.
 
 **Example:**
 
-If someone tries to guess passwords many times and the app doesn’t log those failed attempts or alert anyone, an attacker could brute-force a login unnoticed.
+If someone repeatedly tries to guess passwords and the web application doesn’t log those failed attempts or alert anyone, an attacker could brute-force a login unnoticed.
 
-The information stored in logs should include:
+**What logs should include:**
 - HTTP status codes
 - Time Stamps
 - Usernames
 - API endpoints/page locations
 - IP addresses
 
-**Some signs of suspicious activity are:**
+**Signs of suspicious activity:**
 - **Too many failed login attempts** or trying to access things like admin pages without permission.
   
 - **Requests coming from strange IP addresses or locations**, which could mean someone else is trying to break into an account (though sometimes it's just a false alarm).
@@ -40,8 +40,6 @@ The information stored in logs should include:
 **<p align="center">📋Security Logging and Monitoring Failures (Challenge)📊</p>**
 
 Following the THM lab instructions, I downloaded the task file. This is the sample file I’ll be examining.
-
-The logs show dated successful and redirected login attempts from multiple users and their IP addresses. 
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/09-Security-Logging-and-Monitoring-Failures/Images/Screenshot%201.png)
 
