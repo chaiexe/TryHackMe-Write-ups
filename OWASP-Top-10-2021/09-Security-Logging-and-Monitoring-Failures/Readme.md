@@ -9,7 +9,7 @@
 
 <p align="center">+++++++++</p>
 
-Security Logging and Monitoring Failures are vulnerabilities in web applications where important security events are not properly recorded or monitored. These events can include failed logins, suspicious activity, or system errors. Without strong logging and alerting, attackers can break in, move around, or steal data without being noticed.
+**Security Logging and Monitoring Failures** are vulnerabilities in web applications where important security events are not properly recorded or monitored. These events can include failed logins, suspicious activity, or system errors. Without strong logging and alerting, attackers can break in, move around, or steal data without being noticed.
 
 **Why it matters:**
 
