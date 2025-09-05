@@ -9,13 +9,28 @@
 
 <p align="center">+++++++++</p>
 
-**SSRF** happens when the server makes a request on behalf of the attacker, usually because the application lets users provide URLs or destinations for internal processes without proper validation.
+**Server-Side Request Forgery (SSRF)** is a vulnerability in web applications that allows an attacker to make the server send requests on their behalf, often to internal or protected resources, by exploiting unsanitized user-provided URLs or destinations.
 
-So instead of the server making safe requests to external services (like APIs), the attacker tricks it into making unauthorized or malicious requests, either:
+This usually happens because the application lets users provide URLs or destinations for internal processes without proper validation.
 
-- Internally (e.g. `http://localhost:8080/admin`)
+**Example of unsanitized user-provided URLs or destinations:**
 
-- Externally (e.g. AWS metadata, internal cloud services)
+```
+<img src="https://example.com/fetch-image?url=USER_INPUT">
+```
+A user can provide any URL in `USER_INPUT`, and the server will fetch that URL and display the image.
+
+- Safe input: `https://images.example.com/cat.jpg`
+
+- Malicious input: `http://localhost:8080/admin` or `http://169.254.169.254/latest/meta-data/`
+
+Here, the server blindly trusts the user input and makes the request. An attacker could use it to access internal services or sensitive data.
+
+Instead of the server making safe requests to external services (like APIs), the attacker tricks it into making unauthorized or malicious requests, either:
+
+- Internally: `http://localhost:8080/admin`
+
+- Externally: AWS metadata or internal cloud services
   
 **SSRF Can Be Used To:**
 
@@ -25,10 +40,10 @@ So instead of the server making safe requests to external services (like APIs), 
 
 - **Communicate with non-HTTP services**, potentially leading to critical attacks like remote code execution (RCE) if the target service is vulnerable.
   
-Attackers can use SSRF as a pivot point to move laterally within the internal network — mapping out systems, services, and vulnerabilities that are normally hidden from outside access.
+Attackers can use SSRF as a pivot point to move laterally within the internal network, mapping out systems, services, and vulnerabilities that are normally hidden from outside access.
 
-In short:
-**SSRF is when the attacker turns the server into their personal proxy** for sending malicious requests. The mindset behind it is "I can’t reach those internal systems myself... but maybe you can, server."
+**In short:**
+SSRF is when the attacker turns the server into their personal proxy for sending malicious requests. The mindset behind it is "I can’t reach those internal systems myself... but maybe you can, server."
 
 <p align="center">+++++++++</p>
 
