@@ -45,7 +45,7 @@ The logs show dated records of successful and redirected login attempts from mul
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/09-Security-Logging-and-Monitoring-Failures/Images/Screenshot%201.png)
 
-The unauthorized redirects are associated with the IP address 49.99.13.16, while the rest of the login attempts in the logs appear to be successful logins from different IP addresses linked to legitimate users. There were four unauthorized redirect attempts from the same IP address, each happening every five minutes. This pattern suggests a brute force attack where the attacker may be trying to gradually increase privileges from admin to root.
+The unauthorized redirects are associated with the IP address `49.99.13.16`, while the rest of the login attempts in the logs appear to be successful logins from different IP addresses linked to legitimate users. There were four unauthorized redirect attempts from the same IP address, each happening every five minutes. This pattern suggests a brute force attack where the attacker may be trying to gradually increase privileges from admin to root.
 
 The security issue here comes from monitoring: if no one is actively checking the logs or if there’s no alert system for suspicious activity, these unauthorized redirect attempts could go unnoticed. This repeated activity demonstrates a clear pattern that security monitoring should catch, but without proper monitoring or alerts, it would remain undetected. As a result, an attacker could potentially escalate privileges undetected, which is exactly the type of risk OWASP’s Security Logging and Monitoring Failures highlight.
 
