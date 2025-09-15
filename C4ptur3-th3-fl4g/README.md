@@ -24,7 +24,6 @@ The first question seemed self-explanatory:
 ```
 A: `can you capture the flag?`
 
-
 ```
 2. 01101100 01100101 01110100 01110011 00100000 01110100 01110010 01111001 00100000 01110011 01101111 01101101 01100101 00100000 01100010 01101001 01101110 01100001 01110010 01111001 00100000 01101111 01110101 01110100 00100001
 ```
@@ -36,12 +35,14 @@ A: `lets try some binary out!`
 3. MJQXGZJTGIQGS4ZAON2XAZLSEBRW63LNN5XCA2LOEBBVIRRHOM======
 ```
 At first glance, this looks like Base64, but it’s actually Base32.
+
 A: `base32 is super common in CTF's`
 
 ```
 4. RWFjaCBCYXNlNjQgZGlnaXQgcmVwcmVzZW50cyBleGFjdGx5IDYgYml0cyBvZiBkYXRhLg==
 ```
 This one is Base64. Each Base64 digit represents exactly 6 bits of data.
+
 A: `Each Base64 digit represents exactly 6 bits of data.`
 
 ```
