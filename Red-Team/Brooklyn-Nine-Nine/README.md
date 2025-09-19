@@ -3,7 +3,7 @@
 ---
 
 <p align="center">
-  <img src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Brooklyn-Nine-Nine/Images/Brooklyn%20Nine%20Nine%20Icon.jpeg" alt="image alt" width="150" />
+  <img src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Brooklyn-Nine-Nine/Images/Brooklyn%20Nine%20Nine%20Icon.jpeg" alt="image alt" width="150" />
 </p>
 
 [![Day 18 of 30 – Hack Documentation Challenge](https://img.shields.io/badge/Day%2018%20of%2030-Hack%20Documentation%20Challenge-crimson?style=for-the-badge&logo=tryhackme)](https://tryhackme.com)
@@ -24,7 +24,7 @@ Starting off with an `Nmap -sV` scan revealed three open ports:
 
 Navigating to the IP address in a browser displayed a background image themed around Brooklyn Nine-Nine.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Brooklyn-Nine-Nine/Images/Screenshot%201.png)
+![Alt text](1)
 
 While investigating the page’s source code, I found an interesting message: 
 
@@ -34,7 +34,7 @@ While investigating the page’s source code, I found an interesting message:
 
 The message hints that there may be hidden data within the image.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Brooklyn-Nine-Nine/Images/Screenshot%202.png)
+![Alt text](2)
 
 I downloaded the image exactly as it was served from the web server using:
 
@@ -52,11 +52,11 @@ I attempted default passwords like `password` and `admin`. Fortunately, one of t
 
 🚨 **Note:** Steghide doesn’t always require a password to extract embedded content.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Brooklyn-Nine-Nine/Images/Screenshot%203.png)
+![Alt text](3)
 
 Using the newly obtained credentials to successfully SSH into the `holt` user’s computer allowed access to the user’s home directory, revealing the first flag `user.txt`.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Brooklyn-Nine-Nine/Images/Screenshot%204.png)
+![Alt text](4)
 
 After some trial and error exploring ways to escalate privileges, I ran:
 
@@ -72,7 +72,7 @@ Launching nano with:
 ```
 sudo /bin/nano
 ```
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Brooklyn-Nine-Nine/Images/Screenshot%205.png)
+![Alt text](5)
 
 I then triggered the Execute Command feature using `Ctrl+R`, followed by `Ctrl+X`, which allows for command execution. I typed:
 
@@ -81,7 +81,7 @@ cat /root/root.txt
 ```
 And just like that, I retrieved the final root flag, no shell access required!
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Brooklyn-Nine-Nine/Images/Screenshot%206.png)
+![Alt text](6)
 
 This was another fun and engaging box! The steganography twist was a cool addition, and the privilege escalation path through nano was clever. Definitely a rewarding experience for Day 18.
 
