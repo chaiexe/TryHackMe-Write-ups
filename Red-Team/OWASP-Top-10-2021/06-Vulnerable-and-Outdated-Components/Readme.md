@@ -10,7 +10,7 @@
 
 <p align="center">+++++++++</p>
 
-**Vulnerable and Outdated Components** are weaknesses that occur when web applications depend on old or unpatched software, leaving them exposed to known security exploits.
+A **Vulnerable or Outdated Component** is a web application vulnerability that occurs when a web application depends on old or unpatched software, leaving it exposed to known security exploits.
 
 **Example:** A company running an outdated version of WordPress (version 4.6) is exposed to known vulnerabilities like unauthenticated Remote Code Execution (RCE). Tools like WPScan can identify such versions, and public exploit databases (like Exploit-DB) often contain ready-to-use exploits.
 
@@ -27,27 +27,27 @@ Visiting the target page `hxxp[:]//10.10.186.176:84` brings up the CSE Bookstore
 *“This site has been made using PHP with MySQL (procedure functions)!
 The layout use Bootstrap to make it more responsive. It's just a simple web!”*
 
-![Alt text](1)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/06-Vulnerable-and-Outdated-Components/Images/Screenshot%201.png)
 
 There’s a plethora of information to gather just by exploring the site.
 
 One interesting detail is a link at the bottom-left of the page titled projectworlds, which leads to ` hxxps[:]//projectworlds[.]in/`. The site lists free and paid PHP and Java project source codes. This indicates that the vulnerable application may have been built using one of these publicly available templates.
 
-![Alt text](2)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/06-Vulnerable-and-Outdated-Components/Images/Screenshot%202.png)
 
 Viewing the page source `view-source:hxxp[:]//10.10.186.176:84/` reveals several potentially outdated components, such as older Bootstrap files and possibly insecure PHP functions, hinting at underlying vulnerabilities.
 
-![Alt text](3)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/06-Vulnerable-and-Outdated-Components/Images/Screenshot%203.png)
 
 To investigate further, I googled for "CSE Bookstore exploits", which led to an Exploit-DB entry titled “Online Book Store 1.0 - Unauthenticated Remote Code Execution”
 
 This matched the structure and description of the vulnerable app, confirming that the application in use is publicly known to be exploitable.
 
-![Alt text](4)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/06-Vulnerable-and-Outdated-Components/Images/Screenshot%204.png)
 
 The exploit confirmed being related to the projectworlds php homepage as well.
 
-![Alt text](5)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/06-Vulnerable-and-Outdated-Components/Images/Screenshot%205.png)
 
 <p align="center">+++++++++</p>
 
@@ -67,19 +67,19 @@ The “Online Book Store 1.0 - Unauthenticated Remote Code Execution” exploit 
 
 Next, I saved the RCE exploit as a `.py` file and made it executable using the `chmod +x` command, which adds execute permissions to the file. This allows me to run the Python script directly from the local terminal.
 
-![Alt text](6)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/06-Vulnerable-and-Outdated-Components/Images/Screenshot_6.png)
 
 Running the exploit using `python3` successfully opened a reverse interactive shell in my terminal, giving me command-line access to the target server. I used the `ls` command to list the files on the server and begin exploring the system.
 
 **Note:** A reverse shell allows the target machine to connect back to my terminal, letting me run commands on it remotely as if I were sitting at their keyboard.
 
-![Alt text](7)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/06-Vulnerable-and-Outdated-Components/Images/Screenshot%207.png)
 
 Running the `whoami` and `pwd` commands confirmed that I had access as the web server user and that I was inside the `/htdocs/bootstrap/img` directory of the Apache server.
 
 Finally, using the cat command to read the contents of `/opt/flag.txt` revealed the hidden flag, successfully completing the lab.
 
-![Alt text](8)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/06-Vulnerable-and-Outdated-Components/Images/Screenshot%208.png)
 
 **Lessons Learned:**
 
