@@ -4,6 +4,6 @@ This directory contains my personal write-ups for each of the OWASP Top 10 Web A
 
 This project is part of my ongoing cybersecurity learning journey, with a focus on web application penetration testing.
 
-📘 Sources: 
+📘 **Sources:** 
 - [OWASP Top 10 - 2021 Official Documentation](https://owasp.org/Top10/)
 - [TryHackMe's OWASP Top 10 - 2021 Room](https://tryhackme.com/room/owasptop102021)
