@@ -51,7 +51,7 @@ SSRF is when the attacker turns the server into their personal proxy for sending
 
 Navigating to the URL: `hxxp[:]//10.10.248.60:8087/` brings up John Woo’s web page. His website showcases his photography portfolio, skills, and a download link to his resume.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/10-Server-Side-Request-Forgery/Images/Screenshot%201.png)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/10-Server-Side-Request-Forgery/Images/Screenshot%201.png)
 
 Clicking the “Admin Area” prompts the error message “Admin interface only available from localhost!!!”
 
@@ -59,11 +59,11 @@ Hovering over the “Download Resume” button revels where the server parameter
 `secure-file-storage[.]com` within the URL:
 `10.10.248.60:8087/downlaod?server=secure-file-storage.com:8087&id=75482342`
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/10-Server-Side-Request-Forgery/Images/Screenshot%202.png)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/10-Server-Side-Request-Forgery/Images/Screenshot%202.png)
 
 By using the `nc -l [port]` command to start a listener on the AttackBox, I was able to make the vulnerable application send the request to my machine instead of the secure file storage service. As a result, the API key `THM{Final Flag}` was exposed in the incoming request.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/10-Server-Side-Request-Forgery/Images/Screenshot%203.png)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/10-Server-Side-Request-Forgery/Images/Screenshot%203.png)
 
 Going the extra mile to gain access to the admin area.
 
@@ -71,7 +71,7 @@ Using the original vulnerable URL and the knowledge that only localhost are perm
 
  `http://10.10.243.25:8087/download?server=localhost:8087%23&id=75482342`
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/10-Server-Side-Request-Forgery/Images/Screenshot%204.png)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/10-Server-Side-Request-Forgery/Images/Screenshot%204.png)
 
 <p align="center">+++++++++</p>
 
@@ -105,8 +105,7 @@ Studying the OWASP Top 10 web application vulnerabilities has been really insigh
 
 <p align="center">+++++++++</p>
 
-🔒 Out of respect for the learning experience, I’ve chosen not to share the flag answers
-directly. Instead, I’ve documented my full process to support both others and myself in
+🔒 Out of respect for the learning experience, I’ve chosen not to share the flag answers directly. Instead, I’ve documented my full process to support both others and myself in
 understanding the vulnerability.
 
 **Resources**:
