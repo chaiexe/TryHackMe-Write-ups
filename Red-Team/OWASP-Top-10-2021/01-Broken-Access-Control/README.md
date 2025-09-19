@@ -37,33 +37,34 @@ Examples:
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/01-Broken-Access-Control/Images/Screenshot%202.png)
 
-After successfully logging in, I observed that the URL contained an id parameter: hxxp[:]//10.10.0.36/note.php?note_id=1.
+After successfully logging in, I observed that the URL contained an id parameter: `hxxp[:]//10.10.0.36/note.php?note_id=1`.
 
 The page displays a list of things I, the authenticated user, need to buy from the store. 
 
-To test for potential Insecure Direct Object References (IDORs), I modified the ‘id’ parameter value to ‘2’ to determine if access to another list or additional data would be returned.
+To test for potential Insecure Direct Object References (IDORs), I modified the `id` parameter value to `2` to determine if access to another list or additional data would be returned.
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/01-Broken-Access-Control/Images/Screenshot%203.png)
 
-The page hxxp[:]//10.10.0.36/note.php?note_id=2 returned  a list of scheduled events planned for the month of September 2022. At this point, it is unclear whether the data is associated with the currently authenticated user or another account. Further testing of the URLs ‘id’ parameter will be conducted to determine if a potential Broken Access Control or IDOR vulnerability is present.
+The page `hxxp[:]//10.10.0.36/note.php?note_id=2` returned  a list of scheduled events planned for the month of September 2022. At this point, it is unclear whether the data is associated with the currently authenticated user or another account. Further testing of the URLs `id` parameter will be conducted to determine if a potential Broken Access Control or IDOR vulnerability is present.
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/01-Broken-Access-Control/Images/Screenshot%204.png)
 
-Testing the ‘id’ parameter with the value ‘3’, the URL hxxp[:]//10.10.0.36/note.php?note_id=3 returned the message  “You are not supposed to see this note... Which means you are on the right track!” This message indicated that further unauthorized access is possible.
+Testing the `id` parameter with the value `3`, the URL `hxxp[:]//10.10.0.36/note.php?note_id=3` returned the message  “You are not supposed to see this note... Which means you are on the right track!” This message indicated that further unauthorized access is possible.
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/01-Broken-Access-Control/Images/Screenshot%205.png)
 
-Testing the id parameter with the value ‘5’, the URL hxxp[:]//10.10.0.36/note.php?note_id=5 returned a message “Hint: Do note_ids start from 1? Maybe go lower ;)” The message suggests that additional context may exist at lower ‘id’  values and encourages broader parameter testing.
+Testing the `id` parameter with the value `5`, the URL `hxxp[:]//10.10.0.36/note.php?note_id=5` returned a message “Hint: Do note_ids start from 1? Maybe go lower ;)” The message suggests that additional context may exist at lower `id`  values and encourages broader parameter testing.
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/01-Broken-Access-Control/Images/Screenshot%206.png)
 
-Testing the id parameter with the value of ‘-1’ the URL hxxp[:]//10.10.0.36/note.php?note_id=-1 returned an error page. The ‘id’ value ‘0’ will be tested next.
+Testing the `id` parameter with the value of `-1` the URL `hxxp[:]//10.10.0.36/note.php?note_id=-1` returned an error page. The `id` value `0` will be tested next.
 
 ![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/01-Broken-Access-Control/Images/Screenshot%207.png)
 
-Finally, testing the URL hxxp[:]//10.10.0.36/note.php?note_id=0 with the ‘id’ parameter value ‘0’ returned a THM flag confirming the presence of an Insecure Direct Object Reference (IDOR) vulnerability. In this case, the unauthorized resource was a flag and the vulnerability was located in the URL id parameter with the value “0”.
+Finally, testing the URL `hxxp[:]//10.10.0.36/note.php?note_id=0` with the `id` parameter value `0` returned a THM flag confirming the presence of an Insecure Direct Object Reference (IDOR) vulnerability. In this case, the unauthorized resource was a flag and the vulnerability was located in the URL `id` parameter with the value `0`.
 
 In a real-world scenario, this flag would represent sensitive data an authenticated user was not authorized to access.
 
 **Lessons Learned:**
+
 This TryHackMe lab taught me to broaden my perspective when searching for Broken Access Control vulnerabilities or IDORs. These vulnerabilities exist when developers improperly code a website and leave Direct Object References unprotected. This oversight allows adversaries to exploit the vulnerability and gain unauthorized access to sensitive data they were never intended to view.
