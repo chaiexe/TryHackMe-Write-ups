@@ -42,7 +42,7 @@ Unfortunately, navigating to the `../../../../root/root.txt`path did not give a 
 
 However, viewing the `flag.txt` file did! 
 
-![Alt text]([6](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Lo-Fi/Images/Screenshot%206.png))
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Lo-Fi/Images/Screenshot%206.png)
 
 
 **Lessons Learned**
