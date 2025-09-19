@@ -10,7 +10,7 @@ Today I studied the third one - Injections using the TryHackMe platform to study
 
 <p align="center">+++++++++</p>
 
-**Injections** happen when an adversary is able to submit malicious input into a web application, causing the application to execute unintended commands. The result often leads to unauthorized access, data exposure, or full system compromise.
+**Injection** is a web application vulnerability that happens when an adversary is able to submit malicious input into a web application, causing the application to execute unintended commands. The result often leads to unauthorized access, data exposure, or full system compromise.
 
 **Examples:**
 - **SQL Injections:** These occur when a web application allows user-controlled input to be included in a database query without proper validation. An adversary can inject malicious SQL code to view, modify, or delete data they shouldn’t have access to (e.g., account credentials or sensitive personal information).
