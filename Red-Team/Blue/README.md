@@ -2,7 +2,7 @@
 ---
 
 <p align="center">
-  <img src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Blue/Images/Blue%20Icon.gif" alt="image alt" width="100" />
+  <img src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Blue/Images/Blue%20Icon.gif" alt="image alt" width="100" />
 </p>
 
 [![Day 22 of 30 – Hack Documentation Challenge](https://img.shields.io/badge/Day%2022%20of%2030-Hack%20Documentation%20Challenge-crimson?style=for-the-badge&logo=tryhackme)](https://tryhackme.com)
@@ -25,7 +25,7 @@ Starting the room off with an `Nmap -sV -Pn` scan uncovered three open ports wit
 
 Since common web ports like 80 or 443 were not open, there's no need to attempt accessing the IP via a web browser. The presence of port 445 (SMB) immediately stands out as a potential attack vector, especially given the room's name (Blue), hinting at the EternalBlue (MS17-010) vulnerability.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Blue/Images/Screenshot%201.png)
+![Alt text](1)
 
 Using the search function in Metasploit, I looked for modules related to the EternalBlue (MS17-010) vulnerability. The module `exploit/windows/smb/ms17_010_eternalblue` appeared to be the most accurate and appropriate choice for targeting this SMB flaw. 
 
@@ -43,17 +43,17 @@ So in essence, the flaw is a critical memory corruption vulnerability in SMBv1.
 
 <p align="center">+++++++++</p>
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Blue/Images/Screenshot%202.png)
+![Alt text](2)
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Blue/Images/Screenshot%203.png)
+![Alt text](3)
 
 Using the show options command, I reviewed the required parameters for the exploit. A few values needed to be adjusted to match the target machine’s IP address, my local IP (LHOST), and the selected payload.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Blue/Images/Screenshot%204.png)
+![Alt text](4)
 
 Although a default payload was already configured for the module, I explicitly set the payload again to follow the TryHackMe instructions precisely. Once all configurations were in place, I executed the exploit, successfully gaining a basic Windows shell on the target machine.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Blue/Images/Screenshot%205.png)
+![Alt text](5)
 
 After gaining the initial Windows shell, I backgrounded the session using the `CTRL+Z` command which allowed me to search for the Metasploit module:
 ```
@@ -70,17 +70,17 @@ Before executing the module, I adjusted the options:
 
 Running the module successfully created a second session, this time with a fully functional Meterpreter shell.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Blue/Images/Screenshot%206.png)
+![Alt text](6)
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Blue/Images/Screenshot%207.png)
+![Alt text](7)
 
 I used the `sessions` command to list all active sessions, then connected to the newly spawned Meterpreter shell by running `sessions -i 2`.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Blue/Images/Screenshot%208.png)
+![Alt text](8)
 
 Using the `ps` command listed all the currently running processes to find a process towards the bottom of this list that is running at NT AUTHORITY\SYSTEM. 
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Blue/Images/Screenshot%209.png)
+![Alt text](9)
 
 Process ID 1304 stood out as it was a command-line instance running under the NT AUTHORITY\SYSTEM account, indicating a potential privilege escalation path.
 
@@ -88,15 +88,15 @@ Using the `migrate` command in Meterpreter, I successfully migrated the session 
 
 With SYSTEM privileges secured, I proceeded to dump the stored password hashes using the `hashdump` command, revealing the non-default user on the machine `Jon`.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Blue/Images/Screenshot%2010.png)
+![Alt text](10)
 
 CrackStation was used to successfully uncover the plaintext password from the hash dump.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Blue/Images/Screenshot%2011.png)
+![Alt text](11)
 
 To begin the flag collection, I navigated to the `C:\` directory, where the `dir` command revealed `flag1.txt`. I used `cat` to display its contents.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Blue/Images/Screenshot%2012.png)
+![Alt text](12)
 
 Since I’m more familiar with typical flag locations on Linux machines, I took a moment to research where flags are commonly stored on Windows boxes. Some of the commonly used directories include:
 
@@ -108,11 +108,11 @@ Since I’m more familiar with typical flag locations on Linux machines, I took 
 
 In this case, the second flag was located in the `C:\Windows\System32\config` directory
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Blue/Images/Screenshot%2013.png)
+![Alt text](h13)
 
 Concluding the search, the last flag was located in the user's `Documents` folder at `C:\Users\Jon\Documents`.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Blue/Images/Screenshot%2014.png)
+![Alt text](14)
 
 <p align="center">+</p>
 
