@@ -3,7 +3,7 @@
 
 <p align="center">
 <img
-src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/C4ptur3-th3-fl4g/Images/room%20icon.png" alt="image alt" width="150" />
+src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/C4ptur3-th3-fl4g/Images/room%20icon.png" alt="image alt" width="150" />
 </p>
 
 [![Day 30 of 30 – Hack Documentation Challenge](https://img.shields.io/badge/Day%2030%20of%2030-Hack%20Documentation%20Challenge-4CAF50?style=for-the-badge&logo=tryhackme)](https://tryhackme.com)
@@ -88,29 +88,29 @@ This one looked insane at first, and I had no clue where to start. So I had to g
 
 A: `Let's make this a bit trickier…`
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/C4ptur3-th3-fl4g/Images/Screenshot%201.png)
+![Alt text](1)
 
 **<p align="center">Task 2: Spectrograms</p>**
 
 This task involved an audio file with a hidden message, which could be translated using Sonic Visualiser.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/C4ptur3-th3-fl4g/Images/Screenshot%202.png)
+![Alt text](2)
 
 Following the instructions, I downloaded the file to my attack box and made it executable using the `chmod +x` command then launched the application.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/C4ptur3-th3-fl4g/Images/Screenshot%203.png)
+![Alt text](3)
 
 Within the application, I opened the audio file.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/C4ptur3-th3-fl4g/Images/Screenshot%204.png)
+![Alt text](4)
 
 Next, I right-clicked and added the spectrogram feature to the audio segment.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/C4ptur3-th3-fl4g/Images/Screenshot%205.png)
+![Alt text](5)
 
 Once applied, the hidden message was revealed, super cool!
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/C4ptur3-th3-fl4g/Images/Screenshot%206.png)
+![Alt text](6)
 
 **<p align="center">Task 3: Steganography</p>**
 
@@ -126,7 +126,7 @@ cat steganopayload2248.txt
 ```
 revealed the answer to the task.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/C4ptur3-th3-fl4g/Images/Screenshot%207.png)
+![Alt text](7)
 
 **<p align="center">Task 4: Security through obscurity</p>**
 
@@ -138,7 +138,7 @@ cat Meme.jpeg
 ```
 revealed the final answers to the room!
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/C4ptur3-th3-fl4g/Images/Screenshot%208.png)
+![Alt text](8)
 
 <p align="center">+</p>
 
@@ -148,7 +148,7 @@ This room marks the last room of my 30-day personal pentesting documentation cha
 
 <p align="center">
 <img
-src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/C4ptur3-th3-fl4g/Images/happy.gif" alt="image alt" width="450" />
+src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/C4ptur3-th3-fl4g/Images/happy.gif" alt="image alt" width="450" />
 </p>
 
 Thank you for reading!
