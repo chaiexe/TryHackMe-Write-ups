@@ -10,7 +10,7 @@ Today I will be studying the second one - Cryptographic Failures, using the TryH
 
 <p align="center">+++++++++</p>
 
-**Cryptographic Failures** is the misuse (or lack of use) of cryptographic algorithms for protecting sensitive information.
+**Cryptographic Failures** is a web application vulnerability that happens due to the misuse (or lack of use) of cryptographic algorithms for protecting sensitive information.
 
 **Cryptographic failures** occur when developers fail to use strong or proper encryption. This can happen due to improper implementation, misconfiguration, or the improper use of cryptographic algorithms, protocols, or key management practices. The mistake leaves sensitive data (e.g., passwords, credit card details, personal messages, or usernames and passwords) exposed to adversaries for exploitation.
 
@@ -45,7 +45,7 @@ To demonstrate how easily improperly protected data can be exploited by adversar
 - Hash: b55ab2470f160c331a99b8d8a1946b19
 - Result: Not found.
 
-![Alt text](1)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/02-Cryptographic-Failures/Images/Screenshot%201.png)
 
 Though not all discovered hashes from the SQLite data were successfully cracked using CrackStation, the fact that one hash was compromised is clear evidence of a cryptographic failure within the database.
 
@@ -66,39 +66,39 @@ gobuster dir -u hxxp[:]//10.10.152.187:81/ -w /usr/share/dirb/wordlists/common.t
 ```
 The scan revealed two accessible directories on the web server.
 
-![Alt text](2)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/02-Cryptographic-Failures/Images/Screenshot%202.png)
 
-![Alt text](3)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/02-Cryptographic-Failures/Images/Screenshot%203.png)
 
 Accessing the URL (hxxp[:]//10.10.152.187:81/index.php) displayed the welcome page of Sense and Sensitivity’s homepage, featuring a Login link located at the top right of the page.
 
-![Alt text](4)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/02-Cryptographic-Failures/Images/Screenshot%204.png)
 
 Viewing the source code of the (hxxp[:]//10.10.152.187:81/login.php) page uncovered a hidden note the developer left for himself. The note revealed a highly sensitive clue that the web server’s database is stored in the /assets directory
 
-![Alt text](5)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/02-Cryptographic-Failures/Images/Screenshot%205.png)
 
-![Alt text](6)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/02-Cryptographic-Failures/Images/Screenshot%206.png)
 
 Exploring the (hxxp[:]//10.10.152.187:81/assets) page revealed the web server’s *parent directory, /css, /fonts, /images, /js* directories and its’ web application database named *webapp[.]db*. The database can be downloaded and viewed using the Linux tool **DB Browser for SQlite**
 
-![Alt text](7)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/02-Cryptographic-Failures/Images/Screenshot%207.png)
 
 Using *DB Browser for SQLite* to further investigate the webapp.db database revealed two tables named *sessions* and *users*, indicating the presence of exposed username and password credentials.
 
-![Alt text](8)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/02-Cryptographic-Failures/Images/Screenshot%208.png)
 
 Inspecting the users table under the **Browse Data** tab disclosed three user credentials and uncovered four columns named *userID, username, password, and admin*. It was observed that the *admin* column utilizes 1s and 0s to signify which accounts have administrative access, and that each user’s password is hashed.
 
-![Alt text](9)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/02-Cryptographic-Failures/Images/Screenshot%209.png)
 
 Using Crackstation to crack the admin user’s MD5 hashed password revealed the plaintext password. 
 
-![Alt text](10)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/02-Cryptographic-Failures/Images/Screenshot%2010.png)
 
 Testing the obtained admin credentials on the web application’s login page (hxxp[:]//10.10.152.187:81/login.php) successfully granted access to the admin account, providing console access and revealing the TryHackMe flag, marking the completion of this write-up.
 
-![Alt text](11)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/02-Cryptographic-Failures/Images/Screenshot%2011.png)
 
 **Lessons Learned:** The developer leaving a note within the page source that pointed to the /assets directory is an example of **Sensitive Data Exposure**. This insecure practice led to the discovery of the SQLite database file.
 
