@@ -56,23 +56,23 @@ This makes them more secure in some cases, especially on shared or public comput
 
 Navigating to the target web application URL `hxxp[:]// 10.10.82.56:8088` opens up to Auth hacks’ authentication web page.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/07-Identification-and-Authentication-Failures/Images/Screenshot%201.png)
+![Alt text](1)
 
 **Next Step:** On the registration page, I’ll attempt to register the username `darren` with a leading space `" darren"` to exploit the logic flaw and gain access to an existing account using tester credentials.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/07-Identification-and-Authentication-Failures/Images/Screenshot%202.png)
+![Alt text](2)
 
 The message “User registered successfully!” confirmed that the account was created. Logging in with these credentials granted access to Darren’s account, revealing the first flag. This showed that the web application had poor authentication practices, as the newly created account should not have been identified or treated as an existing user.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/07-Identification-and-Authentication-Failures/Images/Screenshot%203.png)
+![Alt text](3)
 
 Logging in with the newly registered credentials granted access to Darren’s account, revealing the first flag. The flag represents sensitive data that should not have been exposed to an unauthorized user.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/07-Identification-and-Authentication-Failures/Images/Screenshot%204.png)
+![Alt text](4)
 
 Repeating the same process to access Arthur’s account revealed the final flag, confirming the presence of an identification and authentication failure.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/07-Identification-and-Authentication-Failures/Images/Screenshot%205.png)
+![Alt text](5)
 
 **Lessons Learned:**
 
