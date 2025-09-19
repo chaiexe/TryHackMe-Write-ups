@@ -23,35 +23,35 @@ Starting of with an Nmap scan, I discovered three open ports:
 
 Navigating to the IP address in a browser loaded a webpage featuring a dialogue between four characters: Spike, Jet, Ed, and Faye, alongside a background image.
 
-![Alt text](1)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Bounty-Hacker/Images/Screenshot%201.png)
 
 Inspecting the page’s source code revealed a reference to a file named `crew.jpg`. I downloaded it using the `curl -O` command.
 
-![Alt text](2)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Bounty-Hacker/Images/Screenshot%202.png)
 
 I tried using Steghide and a few other tools to see if there was any hidden data or metadata in the image, but didn’t uncover anything useful.
 
-![Alt text](3)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Bounty-Hacker/Images/Screenshot%203.png)
 
 I circled back to Nmap to gather a more detailed network scan and learned that the FTP service allowed anonymous login (ftp-anon).
 
-![Alt text](4)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Bounty-Hacker/Images/Screenshot%204.png)
 
 After successfully logging into the FTP server with the default anonymous credentials, I listed the available files using the `ls` command and found two downloadable `.txt` files. I then used the `get` command to retrieve them.
 
-![Alt text](5)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Bounty-Hacker/Images/Screenshot%205.png)
 
 Viewing the contents with `cat` showed that `locks.txt` contained what looked like a list of passwords, while `task.txt` mentioned a potential username: `lin`.
 
-![Alt text](6)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Bounty-Hacker/Images/Screenshot%206.png)
 
 With that information, I used Hydra to brute-force the SSH login credentials, combining the `lin` username with the password list, and it worked. I was able to recover a probable password.
 
-![Alt text](7)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Bounty-Hacker/Images/Screenshot%207.png)
 
 From there, I logged into the server via SSH as lin and successfully captured the first `user.txt` flag for the room!
 
-![Alt text](8)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Bounty-Hacker/Images/Screenshot%208.png)
 
 I followed up with the `sudo -l` command to see what commands Lin could run with root privileges and discovered I’d be able to exploit the `/bin/tar` binary. 
 
@@ -68,15 +68,15 @@ This command tells `tar` to:
 
 - Since it runs with `sudo`, the shell is launched with root privileges
 
-![Alt text](9)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Bounty-Hacker/Images/Screenshot%209.png)
 
 Entering the command successfully granted root access. From there, I used the `python3 -c 'import pty; pty.spawn("/bin/bash")'` command to stabilize the shell and obtained the final `root.txt` file located within the root directory. - Room complete!
 
-![Alt text](10)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Bounty-Hacker/Images/Screenshot%2010.png)
 
 Out of curiosity, I also tried using Lin’s password with Steghide to access the hidden contents of `crew.jpg`but had no luck, it was worth a try.
 
-![Alt text](11)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Bounty-Hacker/Images/Screenshot%2011.png)
 
 **Lessons Learned**
 
