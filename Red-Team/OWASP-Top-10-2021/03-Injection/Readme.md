@@ -34,7 +34,7 @@ An adversary who exploits a Bash feature called **inline commands**, which lets 
 
 Navigating to the website ( hxxp[:]//10.10.242.121:82/ ) presents the Cowsay Online homepage. The page features a form allowing users to input a message and select a cow style, which is then rendered using the **cowsay** command.
 
-![Alt text](1)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/03-Injection/Images/Screenshot%201.png)
 
 Choosing *dragon* as the cow type and *hi* as the message input resulted in an ASCII image of a dragon echoing the word “hi.” This interaction also updated the URL to:
 ```
@@ -42,17 +42,17 @@ hxxp[:]//10.10.242.121:82/?cow=dragon&mooing=hi
 ```
 These URL parameters are user-controlled and can be tested for potential command injection vulnerabilities.
 
-![Alt text](2)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/03-Injection/Images/Screenshot%202.png)
 
 Testing the Bash inline command `$(whoami)` within the input field resulted in the ASCII image displaying "apache". This confirms that the web application is vulnerable to command injection and may be susceptible to further exploitation.
 
-![Alt text](3)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/03-Injection/Images/Screenshot%203.png)
 
 A simple inline command, `$(ls)`, was injected into the input field. The server responded by displaying the following files, confirming command execution:
 ```BASH 
 css drpepper.txt index.php js
 ```
-![Alt text](4)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/03-Injection/Images/Screenshot%204.png)
 
 Further testing the command injection vulnerability with the cat command was used to read the contents of the drpepper.txt file. The response revealed the message:
 
@@ -60,11 +60,11 @@ Further testing the command injection vulnerability with the cat command was use
 
 This indicates that the file is likely a decoy, suggesting the real target may be located elsewhere within the application or on a related service.
 
-![Alt text](5)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/03-Injection/Images/Screenshot%205.png)
 
 Using the `pwd` command to verify the current working directory on the Apache server revealed that the application is operating within the `/htdocs` directory.
 
-![Alt text](6)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/03-Injection/Images/Screenshot%206.png)
 
 **Note:** Command injections cannot run `cd ..` by itself:
 
@@ -82,11 +82,11 @@ proc  root  run  sbin  srv  sys
 tmp  usr  var
 ```
 
-![Alt text](7)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/03-Injection/Images/Screenshot%207.png)
 
 Testing the` $(cd ..; cat /etc/passwd)` command revealed a list of active users along with other valuable information, including usernames, user IDs (UID), group IDs (GID), user descriptions, home directories, and default shells. It also indicated that the actual password hashes are stored securely in the `/etc/shadow` file.
 
-![Alt text](8)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/03-Injection/Images/Screenshot%208.png)
 
 <p align="center">+++++++++</p>
 
@@ -102,12 +102,11 @@ One of these programs is `/sbin/nologin`, which is often assigned as the login s
 
 These findings confirm that there are no standard users present on the server, making the answer 0.
 
-![Alt text](9)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/03-Injection/Images/Screenshot%209.png)
 
 Viewing the end of the `/etc/passwd` file confirms that the *apache* user’s default shell is set to `/sbin/nologin`.
 
-![Alt text](10)
-
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/03-Injection/Images/Screenshot%2010.png)
 
 <p align="center">+++++++++</p>
 
@@ -131,11 +130,11 @@ Though the *apache* user’s default shell may be set to `/sbin/nologin`, meanin
 
 Using the `$(cd /; uname -a)`command resulted in detailed kernel information, including its version. 
 
-![Alt text](11)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/03-Injection/Images/Screenshot%2011.png)
 
 Finally, command `$(cd /; cat /etc/os-release)`displayed the Linux distribution and version information in a readable format.
 
-![Alt text](12)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/03-Injection/Images/Screenshot%2012.png)
 
 <p align="center">+++++++++</p>
 
