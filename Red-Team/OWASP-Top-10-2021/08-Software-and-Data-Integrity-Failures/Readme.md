@@ -8,7 +8,7 @@
 
 <p align="center">+++++++++</p>
 
-**Software and Data Integrity Failures** are weaknesses in web applications that occur when applications rely on untrusted sources for updates, plugins, dependencies, or critical data without verifying their integrity. In other words, the web application assumes outside sources are safe, even though attackers could have secretly changed them.
+A **Software and Data Integrity Failure** is a web application vulnerability that occurs when an application relies on untrusted sources for updates, plugins, dependencies, or critical data without verifying their integrity. In other words, the web application assumes outside sources are safe, even though attackers could have secretly changed them.
 
 **Why it matters:** Attackers can exploit these weaknesses to spread malicious code through the very tools developers rely on. This often leads to large-scale compromises, where many systems are affected at once.
 
@@ -114,7 +114,7 @@ Navigating to the URL `hxxp[:]//10.10.175.35:8089/ ` opens to the **Cookies4all*
 
 The message confirms the valid credentials for the guest account.
 
-![Alt text](1)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/08-Software-and-Data-Integrity-Failures/Images/Screenshot%201.png)
 
 Successfully logging in with the guest credentials displays the message:
 
@@ -122,15 +122,15 @@ Successfully logging in with the guest credentials displays the message:
 
 Using the browser’s **Developer Tools**, the **Storage** tab confirms that a JWT is stored as a session cookie under the name `jwt-session`.
 
-![Alt text](2)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/08-Software-and-Data-Integrity-Failures/Images/Screenshot%202.png)
 
 Using the AppDevTools Online Base64 Encoder/Decoder website to reconstruct the Header and payload portion of the JWT session cookie resulted in the following:
 
-![Alt text](3)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/08-Software-and-Data-Integrity-Failures/Images/Screenshot%203.png)
 
 Reloading the `hxxp[:]//10.10.175.35:8089/flag` page with the modified JWT session cookie successfully revealed the admin flag.
 
-![Alt text](4)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/08-Software-and-Data-Integrity-Failures/Images/Screenshot%204.png)
 
 **Lessons Learned:** 
 
