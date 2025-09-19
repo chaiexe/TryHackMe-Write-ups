@@ -10,7 +10,7 @@
 
 <p align="center">+++++++++</p>
 
-**Insecure design** refers to flaws in the foundation or logic of a web application that create security weaknesses. It’s not about coding mistakes or misconfigurations, rather about poor planning or missing safeguards built into the system from the beginning.
+An **Insecure Design** is a web application vulnerability that refers to flaws in the foundation or logic of a web application that create security weaknesses. It’s not about coding mistakes or misconfigurations, but rather about poor planning or missing safeguards built into the system from the beginning.
 
 It’s like building a house without locks on the doors. The locks were never broken, but no one ever thought to add them in the first place.
 
@@ -30,15 +30,15 @@ Engaging with the target IP at `hxxp[:]//10.10.147.180:85` loads the TryHackMe F
 
 While the user’s name is known, further testing is needed to determine whether it is also used as the login username. The *Forgot my password…* feature will be explored to assess its behavior and identify any potential weaknesses in the password reset mechanism.
 
-![Alt text](1)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/04-Insecure-Design/Images/Screenshot%201.png)
 
 Interacting with the *Forgot my password…* link redirects to `hxxp[:]//10.10.147.180:85/resetpass1.php`, where the user is prompted to enter their username before proceeding.
 
-![Alt text](2)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/04-Insecure-Design/Images/Screenshot%202.png)
 
 The username Joseph was tested. Clicking *Continue* updated the URL to `hxxp[:]//10.10.147.180:85/resetpass2.php`. Using the dropdown menu, the security question *“What’s your favorite colour?”* was selected, and the answer *red* was submitted.
 
-![Alt text](3)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/04-Insecure-Design/Images/Screenshot%203.png)
 
 This attempt updated the URL to `hxxp[:]//10.10.147.180:85/resetpass2.php?err=1`, prompting the message:
 ```
@@ -47,19 +47,19 @@ This attempt updated the URL to `hxxp[:]//10.10.147.180:85/resetpass2.php?err=1`
 
 Following the failed attempt, the password reset form reverted to the default question: *“What’s your mother’s sister’s son’s nephew’s neighbour’s friend name?”*, suggesting this is the fallback state of the page regardless of the question previously selected.
 
-![Alt text](4)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/04-Insecure-Design/Images/Screenshot%204.png)
 
 A second attempt was made to answer the default security question, *“What’s your mother’s sister’s son’s nephew’s neighbour’s friend name?”* Regardless of the input provided, the URL remained unchanged as `hxxp[:]//10.10.147.180:85/resetpass2.php?err=1`, and the same error message persisted. This suggests that either the answer was incorrect, or the application is hardcoded to return the same response for all invalid submissions.
 
-![Alt text](5)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/04-Insecure-Design/Images/Screenshot%205.png)
 
 It was also observed that the password reset security answer field accepted any input without validation. Even submitting a single character such as a period (.) resulted in the same generic error message, *“Error: Incorrect answer! Try again.”* This indicates that the application does not enforce input format or content validation for the security question’s answer.
 
-![Alt text](6)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/04-Insecure-Design/Images/Screenshot%206.png)
 
 Testing the URL parameters by appending `user=joseph&answer=red` did not bypass the validation. The web page returned the same error message and reverted to the default password reset page, indicating that changing the URL parameters is ineffective.
 
-![Alt text](7)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/04-Insecure-Design/Images/Screenshot%207.png)
 
 Manually navigating to `resetpass3.php` redirected back to the initial password reset page at `hxxp[:]//10.10.147.180:85/resetpass1.php.` This behavior suggests that the server enforces step-by-step access control, preventing users from skipping directly to the final step without completing the previous stages. It's likely that the server uses a session variable or some backend check to confirm the security question was answered before allowing access to the final reset page.
 
@@ -71,7 +71,7 @@ Additionally, submitting a random username such as "x" returned the error messag
 ```
 In contrast, submitting "Joseph" didn’t trigger the same error, which confirms that the username exists on the server.
 
-![Alt text](8)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/04-Insecure-Design/Images/Screenshot%208.png)
 
 The application relies solely on a security question to verify a user’s identity during the password reset process. If the submitted answer is correct, the system assumes the requester is Joseph without any additional verification. This highlights a serious insecure design flaw: the application validates identity using only a single, easily guessable value, without any support from email confirmation, authentication tokens, or multi-factor verification.
 
@@ -84,7 +84,7 @@ After testing *red*, the next attempt using *green* was successful, resulting in
 
 ```
 
-![Alt text](9)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/04-Insecure-Design/Images/Screenshot%209.png)
 
 The password `9enhrKJ1uk4MNj` was then used to attempt a login to Joseph’s account.
 
@@ -96,15 +96,15 @@ Logging in with the correct credentials resulted in a successful authentication,
 “Remember to move private files out of the server!”
 ```
 
-![Alt text](10)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/04-Insecure-Design/Images/Screenshot%2010.png)
 
-![Alt text](11)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/04-Insecure-Design/Images/Screenshot%2011.png)
 
 Clicking on the “Private” tab revealed a document named `flag.txt`, which contained the TryHackMe flag required to complete the task.
 
-![Alt text](12)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/04-Insecure-Design/Images/Screenshot%2012.png)
 
-![Alt text](13)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/OWASP-Top-10-2021/04-Insecure-Design/Images/Screenshot%2013.png)
 
 **Lessons Learned:**
 
