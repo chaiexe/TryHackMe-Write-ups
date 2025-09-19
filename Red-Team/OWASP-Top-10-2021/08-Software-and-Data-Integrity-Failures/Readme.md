@@ -114,7 +114,7 @@ Navigating to the URL `hxxp[:]//10.10.175.35:8089/ ` opens to the **Cookies4all*
 
 The message confirms the valid credentials for the guest account.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/08-Software-and-Data-Integrity-Failures/Images/Screenshot%201.png)
+![Alt text](1)
 
 Successfully logging in with the guest credentials displays the message:
 
@@ -122,15 +122,15 @@ Successfully logging in with the guest credentials displays the message:
 
 Using the browser’s **Developer Tools**, the **Storage** tab confirms that a JWT is stored as a session cookie under the name `jwt-session`.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/08-Software-and-Data-Integrity-Failures/Images/Screenshot%202.png)
+![Alt text](2)
 
 Using the AppDevTools Online Base64 Encoder/Decoder website to reconstruct the Header and payload portion of the JWT session cookie resulted in the following:
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/08-Software-and-Data-Integrity-Failures/Images/Screenshot%203.png)
+![Alt text](3)
 
 Reloading the `hxxp[:]//10.10.175.35:8089/flag` page with the modified JWT session cookie successfully revealed the admin flag.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/08-Software-and-Data-Integrity-Failures/Images/Screenshot%204.png)
+![Alt text](4)
 
 **Lessons Learned:** 
 
@@ -138,8 +138,7 @@ This challenge demonstrated how weak or missing signature validation in JWTs can
 
 <p align="center">+++++++++</p>
 
-🔒 Out of respect for the learning experience, I’ve chosen not to share the flag answers
-directly. Instead, I’ve documented my full process to support both others and myself in
+🔒 Out of respect for the learning experience, I’ve chosen not to share the flag answers directly. Instead, I’ve documented my full process to support both others and myself in
 understanding the vulnerability.
 
 **Resources**:
