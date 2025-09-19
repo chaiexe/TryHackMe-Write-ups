@@ -1,4 +1,3 @@
------
 **<p align="center">TryHackMe: Brooklyn Nine Nine</p>**
 ---
 
@@ -24,7 +23,7 @@ Starting off with an `Nmap -sV` scan revealed three open ports:
 
 Navigating to the IP address in a browser displayed a background image themed around Brooklyn Nine-Nine.
 
-![Alt text](1)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Brooklyn-Nine-Nine/Images/Screenshot%201.png)
 
 While investigating the page’s source code, I found an interesting message: 
 
@@ -34,7 +33,7 @@ While investigating the page’s source code, I found an interesting message:
 
 The message hints that there may be hidden data within the image.
 
-![Alt text](2)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Brooklyn-Nine-Nine/Images/Screenshot%202.png)
 
 I downloaded the image exactly as it was served from the web server using:
 
@@ -52,11 +51,11 @@ I attempted default passwords like `password` and `admin`. Fortunately, one of t
 
 🚨 **Note:** Steghide doesn’t always require a password to extract embedded content.
 
-![Alt text](3)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Brooklyn-Nine-Nine/Images/Screenshot%203.png)
 
 Using the newly obtained credentials to successfully SSH into the `holt` user’s computer allowed access to the user’s home directory, revealing the first flag `user.txt`.
 
-![Alt text](4)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Brooklyn-Nine-Nine/Images/Screenshot%204.png)
 
 After some trial and error exploring ways to escalate privileges, I ran:
 
@@ -72,7 +71,7 @@ Launching nano with:
 ```
 sudo /bin/nano
 ```
-![Alt text](5)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Brooklyn-Nine-Nine/Images/Screenshot%205.png)
 
 I then triggered the Execute Command feature using `Ctrl+R`, followed by `Ctrl+X`, which allows for command execution. I typed:
 
@@ -81,7 +80,7 @@ cat /root/root.txt
 ```
 And just like that, I retrieved the final root flag, no shell access required!
 
-![Alt text](6)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Brooklyn-Nine-Nine/Images/Screenshot%206.png)
 
 This was another fun and engaging box! The steganography twist was a cool addition, and the privilege escalation path through nano was clever. Definitely a rewarding experience for Day 18.
 
