@@ -2,7 +2,7 @@
 ---
 
 <p align="center">
-  <img src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Evil-GPT/Images/Room%20Icon.png" alt="image alt" width="180" />
+  <img src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Evil-GPT/Images/Room%20Icon.png" alt="image alt" width="180" />
 </p>
 
 [![Day 23 of 30 – Hack Documentation Challenge](https://img.shields.io/badge/Day%2023%20of%2030-Hack%20Documentation%20Challenge-crimson?style=for-the-badge&logo=tryhackme)](https://tryhackme.com)
@@ -27,15 +27,15 @@ I began by running an Nmap scan and discovered one open port:
 
 Since no common web ports like 80 or 443 were open, there was no need to access the target via a web browser.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Evil-GPT/Images/Screenshot%201.png)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Evil-GPT/Images/Screenshot%201.png)
 
 Following the room’s instructions to connect to the target machine using the `nc 10.201.113.240 1337` command connects to what seems to be an AI command executor.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Evil-GPT/Images/Screenshot%202.png)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Evil-GPT/Images/Screenshot%202.png)
 
 Testing out the Ai command executer, I entered in the command `ls /root` and noticed the Ai interpreted the command as `ls -la /root` and displayed the existing contents of the `/root` directory. Among the list included a `flag.txt` file.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Evil-GPT/Images/Screenshot%203.png)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Evil-GPT/Images/Screenshot%203.png)
 
 After some testing, I learned the generator responds better to the user's input commands when they are wrapped in double quotes and sent via the `echo` command.
 
@@ -46,7 +46,7 @@ Ai command executor interpretation: `sudo id`
 
 With that in mind, I issued the command `echo "cat /root/flag.txt"` to retrieve the room's root flag.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Evil-GPT/Images/Screenshot%204.png)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Evil-GPT/Images/Screenshot%204.png)
 
 <p align="center">+</p>
 
