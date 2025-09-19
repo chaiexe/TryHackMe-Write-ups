@@ -9,7 +9,7 @@
 
 <p align="center">+++++++++</p>
 
-**Server-Side Request Forgery (SSRF)** is a vulnerability in web applications that allows an attacker to make the server send requests on their behalf, often to internal or protected resources, by exploiting unsanitized user-provided URLs or destinations.
+A **Server-Side Request Forgery (SSRF)** is a web application vulnerability that allows an attacker to make the server send requests on their behalf, often to internal or protected resources, by exploiting unsanitized user-provided URLs or destinations.
 
 This usually happens because the application lets users provide URLs or destinations for internal processes without proper validation.
 
