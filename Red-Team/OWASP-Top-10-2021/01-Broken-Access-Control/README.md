@@ -10,7 +10,7 @@ Today I will be studying the first one - Broken Access Control using the TryHack
 
 <p align="center">+++++++++</p>
 
-**Broken Access Control** is when a web application fails to restrict a user from what they are allowed and not allowed to access.
+**Broken Access Control** is a web application vulnerability that occurs when an application fails to properly restrict users from accessing resources or actions they are not authorized to.
 
 - Core Concept: It occurs when users can bypass authorization and act outside their intended permissions.
 
