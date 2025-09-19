@@ -44,7 +44,7 @@ Starting the THM target VM, the lab objective is to navigate to `hxxp[:]//10.10.
 
 Navigating to the web page `hxxp[:]//10.10.145.40:86/console` displays an interactive Werkzeug console. The web page reads “In this console you can execute Python expressions in the context of the application. The initial namespace was created by the debugger automatically.”
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/05-Security-Misconfiguration/Images/Screenshot%201.png)
+![Alt text](1)
 
 Following THM’s lab instructions to use the Werkzeug console to execute the `ls -l`command using the following Python code:
 ```
@@ -53,11 +53,11 @@ import os; print(os.popen("ls -l").read())
 **Note:** This command lists the files and directories in the current directory in long format.
 `Todo.db` is the database file name in the current directory.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/05-Security-Misconfiguration/Images/Screenshot%202.png)
+![Alt text](2)
 
 Modifying the python code to read the contexts of the `app.py` file reveals the `secret_flag` variable in the source code.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/OWASP-Top-10-2021/05-Security-Misconfiguration/Images/Screenshot%203.png)
+![Alt text](3)
 
 **Lessons Learned:** 
 
@@ -65,9 +65,7 @@ This lab highlighted a real-world scenario of how easily Security Misconfigurati
 
 <p align="center">+++++++++</p>
 
-🔒 Out of respect for the learning experience, I’ve chosen not to share the flag answers
-directly. Instead, I’ve documented my full process to support both others and myself in
-understanding the vulnerability.
+🔒 Out of respect for the learning experience, I’ve chosen not to share the flag answers directly. Instead, I’ve documented my full process to support both others and myself in understanding the vulnerability.
 
 **Resources**:
 - [TryHackMe's OWASP Top 10 - 2021 Room](https://tryhackme.com/room/owasptop102021)
