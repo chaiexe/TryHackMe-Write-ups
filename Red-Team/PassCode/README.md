@@ -2,7 +2,7 @@
 ---
 
 <p align="center">
-  <img src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/PassCode/Images/THM%20PassCode%20Image.png" alt="image alt" width="180" />
+  <img src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/PassCode/Images/THM%20PassCode%20Image.png" alt="image alt" width="180" />
 </p>
 
 [![Day 16 of 30 – Hack Documentation Challenge](https://img.shields.io/badge/Day%2016%20of%2030-Hack%20Documentation%20Challenge-crimson?style=for-the-badge&logo=tryhackme)](https://tryhackme.com)
