@@ -2,7 +2,7 @@
 ---
 
 <p align="center">
-  <img src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Madness/Images/Time%20loop.gif" alt="image alt" width="300" />
+  <img src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Madness/Images/Time%20loop.gif" alt="image alt" width="300" />
 </p>
 
 [![Day 19 of 30 – Hack Documentation Challenge](https://img.shields.io/badge/Day%2019%20of%2030-Hack%20Documentation%20Challenge-crimson?style=for-the-badge&logo=tryhackme)](https://tryhackme.com)
@@ -30,7 +30,7 @@ Navigating to the IP via browser led to the default Apache2 Ubuntu landing page.
 ```
 This clue hints at a potential vulnerability or misconfiguration, especially since the Apache version in use is 2.4.18, which is known to have several public exploits. A quick search through the provided link led me down a rabbit hole of Apache bugs related to outdated Debian/Ubuntu builds.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Madness/Images/Screenshot%201.png)
+![Alt text](1)
 
 After some initial dead ends, I took a closer look at the HTML source code and found something more promising:
 ```
@@ -44,7 +44,7 @@ After some initial dead ends, I took a closer look at the HTML source code and f
 ```
 The hidden comment, “They will never find me”, combined with the presence of thm.jpg, stood out as a clue worth digging into.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Madness/Images/Screenshot%202.png)
+![Alt text](2)
 
 The `curl -O` command was used to download the image file. To investigate whether it contained any hidden data, I attempted to extract contents using Steghide. However, I was unsuccessful, as none of the default or common passwords worked.
 
@@ -68,9 +68,9 @@ From my research, I learned that:
 
 These values can be critical indicators when checking file authenticity or uncovering hidden data.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Madness/Images/Screenshot%203.png)
+![Alt text](3)
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Madness/Images/Screenshot%204.png)
+![Alt text](4)
 
 This is where things started to get interesting. The image file's header contained the PNG signature bytes, but its tail ended with JPEG hex values. This mismatch suggested that the file was mislabeled or tampered with, and needed to be corrected to a proper JPEG format before it could be analyzed further.
 
@@ -88,7 +88,7 @@ printf '\xff\xd8\xff\xe0\x00\x10\x4a\x46\x49\x46\x00\x01' | dd conv=notrunc of=t
 
 - `bs=1`: Sets the block size to 1 byte to ensure precise byte-by-byte writing.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Madness/Images/Screenshot%205.png)
+![Alt text](5)
 
 After replacing the incorrect header, the file thumbnail updated and reflected a valid JPEG image. A quick check confirmed that the file was indeed a JPEG, not a PNG.
 
@@ -99,55 +99,55 @@ xdg-open thm.jpg
 
 The image successfully opened and revealed a potential hidden directory within the target server.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Madness/Images/Screenshot%206.png)
+![Alt text](6)
 
 Navigating to the newly uncovered directory led to a webpage containing a mysterious “secret” that needed to be solved. Inspecting the page source code revealed a hint on how to crack the secret.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Madness/Images/Screenshot%207.png)
+![Alt text](7)
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Madness/Images/Screenshot%208.png)
+![Alt text](8)
 
 Using the hint, I formulated a python script that automated the process of guessing the secret using the URL parameter `?secret=` and successfully uncovered the secret password!
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Madness/Images/Screenshot%209.png)
+![Alt text](9)
 
 The newly obtained password was then used with the Steghide tool to extract hidden data from the `thm.jpg` file. This process successfully uncovered a `.txt` file that contained a username!
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Madness/Images/Screenshot%2010.png)
+![Alt text](10)
 
 This part of the lab became even trickier. Although I had uncovered both a username and a password, the initial attempt to connect via SSH was unsuccessful. After some digging around, it became clear there was another image possibly holding extra data, the very first one on the THM Madness room landing page, which many, like myself, likely overlooked.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Madness/Images/Screenshot%2011.png)
+![Alt text](11)
 
 After downloading the Madness image file, I used Steghide to extract any hidden contents without requiring a password. This revealed the user’s actual password.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Madness/Images/Screenshot%2012.png)
+![Alt text](12)
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Madness/Images/Screenshot%2013.png)
+![Alt text](13)
 
 Additionally, I discovered that the initial username was encoded with ROT13. Using CyberChef to decode it revealed a usable username, which allowed me to successfully attempt the SSH connection.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Madness/Images/Screenshot%2014.png)
+![Alt text](14)
 
 The obtained username and password were used to successfully connect to the user’s account via SSH, granting limited privileges on the server.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Madness/Images/Screenshot%2015.png)
+![Alt text](15)
 
 From there, the `user.txt` file was sitting within the user’s home directory for grabs.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Madness/Images/Screenshot%2016.png)
+![Alt text](16)
 
 Unfortunately, the user did not have root access to view the `/root` directory so our privileges needed to be escalated. The command `find / -perm -4000 -type f 2>/dev/null` was used to search the entire system for SUID files to exploit. 
 
 Among the results, the binary `/bin/screen-4.5.0` stood out due to the existence of a known local privilege escalation exploit.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Madness/Images/Screenshot%2017.png)
+![Alt text](17)
 
 To execute the exploit, I saved it as a Python file and granted it execute permissions using the `chmod +x` command. Once run, the exploit granted root access, revealing the final flag. With that, the box was officially rooted and my sanity, for the most part, remained intact despite the madness.
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Madness/Images/Screenshot%2018.png)
+![Alt text](18)
 
-![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Madness/Images/Screenshot%2019.png)
+![Alt text](19)
 
 **Lessons Learned**
 
