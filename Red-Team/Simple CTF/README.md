@@ -23,7 +23,7 @@ Beginning with an Nmap scan on the target IP 10.10.23.63 revealed three open por
 
 Navigating to the webpage prompts the default Apache2 welcome page on Ubuntu, confirming that the server is working correctly after installation. The page should be replaced at `/var/www/html/index.html` before using the server publicly.
 
-![Alt text](1)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Simple%20CTF/Images/Screenshot%201.png)
 
 Using `gobuster` to brute-force the directories on the web server using the `common.txt` wordlist revealed three accessible paths that returned two successful and one redirect HTTP responses:
 - `/index.html`
@@ -32,13 +32,13 @@ Using `gobuster` to brute-force the directories on the web server using the `com
 
 Navigating to `/robots.txt` uncovered a disallowed directory entry `Disallow: /openemr-5_0_1_3`.
 
-![Alt text](2)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Simple%20CTF/Images/Screenshot%202.png)
 
 Attempting to access `/openemr-5_0_1_3` returned a 404 Not Found error. This could mean the directory has been removed or hidden.
 
 Backtracking to investigate the `/simple` path, redirected to the homepage of CMS Made Simple, a content management system. Noting that the site is powered by CMS Made Simple version 2.2.8.
 
-![Alt text](3)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Simple%20CTF/Images/Screenshot%203.png)
 
 While researching, an unauthenticated blind time-based SQL injection was discovered on MITRE that exploits the `m1_idlist parameter` (CVE-2019-9053).
 
@@ -46,38 +46,38 @@ This means the web server can be exploited without logging in, by crafting a GET
 
 The Python exploit script from Exploit-DB titled “CMS Made Simple < 2.2.10 - SQL Injection” was used to automate the attack. After installing required dependencies   `termcolor` using `pip`, the script was executed successfully,  extracting account credentials along with a salted password hash.
 
-![Alt text](4)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Simple%20CTF/Images/Screenshot%204.png)
 
-![Alt text](5)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Simple%20CTF/Images/Screenshot%205.png)
 
 Using Hashcat, the following command was used to uncover the plaintext password for Mitch’s account:
 ```
 hashcat -O -a 0 -m 20 [HASHEDPASSWORD:SALT] /usr/share/wordlists/rockyou.txt
 ```
 
-![Alt text](6)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Simple%20CTF/Images/Screenshot%206.png)
 
-![Alt text](7)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Simple%20CTF/Images/Screenshot%207.png)
 
 Once the password was recovered, it was successfully used to log into the CMS Made Simple admin panel under Mitch’s account, confirming credential validity and granting access to the content management interface.
 
-![Alt text](8)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Simple%20CTF/Images/Screenshot%208.png)
 
 The recovered credentials were then used to establish an SSH connection as Mitch. After logging in, running `sudo -l` revealed the commands Mitch could execute with elevated privileges.
 
 The output revealed that Mitch could execute`/usr/bin/vim` as root without requiring a password.
 
-![Alt text](9)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Simple%20CTF/Images/Screenshot%209.png)
 
-![Alt text](10)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Simple%20CTF/Images/Screenshot%2010.png)
 
 Executing Vim with elevated privileges launched the text editor. From there, entering command mode with `:` followed by `!sh` provided a root shell.
 
 Finally, with root access established, retrieving both the `user.txt` and `root.txt` flags was straightforward.
 
-![Alt text](11)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Simple%20CTF/Images/Screenshot%2011.png)
 
-![Alt text](12)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Simple%20CTF/Images/Screenshot%2012.png)
 
 **Lessons Learned**
 
