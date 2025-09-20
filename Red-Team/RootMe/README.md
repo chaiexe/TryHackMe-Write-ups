@@ -22,39 +22,39 @@ Starting of with an Nmap scan, I discovered two open ports:
 
 Visiting the IP address in a browser loaded an animated homepage for the HackIT domain, featuring the message: `“Can you root me?”`
 
-![Alt text](1)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/RootMe/Images/Screenshot%201.png)
 
 Using the Gobuster tool to enumerate the target web server revealed a few interesting directories, `/panel` being the most interesting as it led to a file upload page.
 
-![Alt text](2)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/RootMe/Images/Screenshot%202.png)
 
 I began testing different file types to see what the upload feature would accept. Standard .php files were rejected, but I was able to successfully bypass the filter by renaming my payload to use a double extension `.php.jpg`
 
-![Alt text](3)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/RootMe/Images/Screenshot%203.png)
 
 Referring back to my gobuster scan, I was able to confirm the file uploads from the `/panel` directory were stored within the `/uploads` directory.
 
-![Alt text](4)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/RootMe/Images/Screenshot%204.png)
 
 I also tested a script embedded in a `.phtml` file and discovered that the site was vulnerable to Local File Inclusion (LFI) attacks. This was confirmed by using the URL parameter `?cmd=id`, which returned information about the user and group IDs associated with the current user.
 
-![Alt text](5)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/RootMe/Images/Screenshot%205.png)
 
 Next, I used the classic Pentestmonkey PHP reverse shell script, updated it with my attack box IP and chosen listener port, and saved it with a `.php.phtml` extension, since the upload page accepted files ending in `.phtml`.
 
-![Alt text](6)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/RootMe/Images/Screenshot%206.png)
 
 In a second terminal, I set up a Netcat listener on port `5555` while uploading the `.php.phtml` payload via the `/panel` page. 
 
-![Alt text](7)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/RootMe/Images/Screenshot%207.png)
 
 Navigating to the URL of the tester `.phtml` file activated a callback from the target server to my Netcat listener, granting a reverse interactive shell into the machine.
 
-![Alt text](8)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/RootMe/Images/Screenshot%208.png)
 
 After some search and discovery (sometimes this process will take way longer than anticipated), I was successful in finding the first `user.txt` flag located in the `var/www` directory.
 
-![Alt text](9)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/RootMe/Images/Screenshot%209.png)
 
 To identify binaries with SUID (Set User ID) privileges, I ran the following command:
 ```
@@ -63,11 +63,11 @@ find / -perm -4000 -type f 2>/dev/null
 
 The binary `/usr/bin/python` looked the most promising, given there are known privilege escalation exploits for certain Python versions.
 
-![Alt text](10)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/RootMe/Images/Screenshot%2010.png)
 
 Using the command `/usr/bin/python -c ‘import os; os.execl(“/bin/sh”, “sh”, “-p”)’`, I was able to exploit the SUID Python binary to gain root access on the server and retrieve the final `root.txt` flag.
 
-![Alt text](11)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/RootMe/Images/Screenshot%2011.png)
 
 **Lessons Learned**
 
