@@ -196,4 +196,4 @@ I had a lot of fun working through this room, it was a perfect purple team exerc
 🔒 Out of respect for the learning experience, I’ve chosen not to share the flag answers directly. Instead, I’ve documented my full process to support both others and myself in understanding the vulnerability.
 
 **Resources**
-- [TryHackMe’s h4acked Room](https://tryhackme.com/room/h4cked)
+- [TryHackMe’s h4cked Room](https://tryhackme.com/room/h4cked)
