@@ -17,42 +17,42 @@ Beginning with an Nmap scan on the target IP 10.10.34.213 revealed two open port
 
 Navigating to the webpage prompts an error message “Unable to connect”, hinting there must be another way to connect to the server.
 
-![Alt text](1)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Source/Images/Screenshot%201.png)
 
 According to Tenable, there is a reported Remote Code Execution (RCE) vulnerability for Webmin versions 1.882 to 1.921. The target 10.10.34.213 is running Webmin version 1.890.
 
-![Alt text](2)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Source/Images/Screenshot%202.png)
 
 Using Metasploit to search for the known CVE:2019-15107 led me to the `linux/http/webmin_backdoor` module.
 
-![Alt text](3)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Source/Images/Screenshot%203.png)
 
 To properly configure the exploit, I set:
 - `SSL` to `true` (since Webmin runs over HTTPS),
 - `ForceExploit` to `true` to bypass Metasploit’s internal check, and  
 - I selected the payload `cmd/unix/reverse_netcat` for personal preference and easier shell interaction.
 
-![Alt text](4)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Source/Images/Screenshot%204.png)
 
-![Alt text](5)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Source/Images/Screenshot%205.png)
 
 After modifying the options, I successfully ran the exploit and received an unstable Netcat shell.
 
-![Alt text](6)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Source/Images/Screenshot%206.png)
 
 Next, the golden commands `export TERM-xterm` & `python -c 'import pty; pty.spawn("/bin/bash")' were used to successfully stabilize the shell as `root`.
 
-![Alt text](7)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Source/Images/Screenshot%207.png)
 
 The command `cat /etc/passwd/ | grep /home` was used to locate any user accounts with a `/home` directory. Out of the two that were found, the user `Dark` looked the most intriguing.
 
 Using the command `su - [SUID]` to switch to the `Dark` user’s account allowed me to locate the `user.txt` file located in the user’s home directory.
 
-![Alt text](8)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Source/Images/Screenshot%208.png)
 
 Since I initially was root, I restarted the exploit session to get back to `root` user and located the final flag using the `/root/root.txt` command.
 
-![Alt text](9)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Source/Images/Screenshot%209.png)
 
 Mission accomplished!!
 
