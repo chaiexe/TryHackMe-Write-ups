@@ -25,7 +25,7 @@ nmap -sC -sV 10.201.54.62
 The scan revealed only one open port:
 - 22/tcp – SSH (OpenSSH 8.2p1 Ubuntu 4ubuntu0.13)
 
-![Alt text](1)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Bugged/Images/Screenshot%201.png)
 
 With only SSH exposed, I decided to perform a targeted brute-force attack using Hydra:
 ```
@@ -34,21 +34,21 @@ hydra -L /usr/share/seclists/Usernames/top-usernames-shortlist.txt -P /usr/share
 
 Hydra successfully uncovered valid credentials for the root account.
 
-![Alt text](2)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Bugged/Images/Screenshot%202.png)
 
 Using these credentials, I SSH’d into the target:
 ```
 ssh root@10.201.54.62
 ```
 
-![Alt text](3)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Bugged/Images/Screenshot%203.png)
 
 Once inside, I enumerated the system, confirmed I had root privileges, and explored the filesystem. In the `/bugged` directory, I found `flag.txt` and retrieved its contents using:
 ```
 cat /bugged/flag.txt
 ```
 
-![Alt text](4)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Bugged/Images/Screenshot%204.png)
 
 Flag captured, room owned!
 
