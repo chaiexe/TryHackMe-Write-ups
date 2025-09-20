@@ -37,7 +37,7 @@ After identifying the target IP, I ran an Nmap scan, which revealed two open por
 
 Accessing the target via a web browser led to a login page.
 
-![Alt text](1)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Hydra/Images/Screenshot%201.png)
 
 From the challenge question in Task 2, *“Use Hydra to bruteforce molly’s web password. What is flag 1?”*, we know the username is `molly`. Which means we need to brute-force her password using Hydra to obtain the first flag.
 
@@ -47,7 +47,7 @@ username=tester&password=password123
 ```
 These POST parameters are needed for constructing the Hydra command, as they define how the login page processes authentication attempts.
 
-![Alt text](2)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Hydra/Images/Screenshot%202.png)
 
 <p align="center">+++++++++</p>
 
@@ -73,33 +73,33 @@ Your username or password is incorrect.
 
 This string is entered into the `F=incorrect` field in the Hydra command to indicate a failed login attempt.
 
-![Alt text](3)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Hydra/Images/Screenshot%203.png)
 
 With all required information gathered, the following Hydra command was executed, successfully revealing `molly`’s web password:
 ```
 hydra -l molly -P /usr/share/wordlists/rockyou.txt 10.201.118.167 http-post-form "/login:username=^USER^&password=^PASS^:Your username or password is incorrect" -V
 ```
 
-![Alt text](4)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Hydra/Images/Screenshot%204.png)
 
 Using the obtained credentials to log in to the web page revealed the first flag of the room!
 
-![Alt text](5)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Hydra/Images/Screenshot%205.png)
 
 Next, Hydra was used to brute-force `molly`’s SSH login. The following command was executed, successfully obtaining her SSH password:
 ```
 hydra -l molly -P /usr/share/wordlists/rockyou.txt ssh://10.201.118.167
 ```
 
-![Alt text](6)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Hydra/Images/Screenshot%206.png)
 
 I then proceeded to successfully log in to Molly’s SSH account using the password obtained from Hydra. From there, I was able to retrieve the final flag of the room using the `ls` and `cat` commands!
 
-![Alt text](7)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Hydra/Images/Screenshot%207.png)
 
 I didn’t get any points from completing this room, but I did gain 2 gold raffle tickets towards the Hack2Win TryHackMe challenge! 
 
-![Alt text](8)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Hydra/Images/Screenshot%208.png)
 
 **Lessons Learned**
 
