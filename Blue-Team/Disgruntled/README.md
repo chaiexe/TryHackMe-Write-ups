@@ -14,7 +14,7 @@ src="https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Blue-Team/Disgrunt
 
 <p align="center">+++++++++</p>
 
-## <p align="center">Task 1: Introduction</p>
+### <p align="center">Task 1: Introduction</p>
 
 “Hey, kid! Good, you’re here!
 
@@ -25,7 +25,7 @@ CyberT wants us to check if this person has done anything malicious to any of th
 
 **Q1:** Grab a cup of coffee.
 
-## <p align="center">Task 2: Linux Forensics review</p>
+### <p align="center">Task 2: Linux Forensics review</p>
 
 This is the cheat sheet PDF that will be used to answer the following questions.
 
@@ -33,7 +33,7 @@ This is the cheat sheet PDF that will be used to answer the following questions.
 
 **Q2:** Take a sip of coffee.
 
-## <p align="center">Task 3: Nothing suspicious... So far</p>
+### <p align="center">Task 3: Nothing suspicious... So far</p>
 
 “Here’s the machine our disgruntled IT user last worked on. Check if there’s anything our client needs to be worried about.
 My advice: Look at the privileged commands that were run. That should get you started.”
@@ -80,7 +80,7 @@ Among the data, the `install` command shows the user installed a file named `dok
 Referring back to the log line, the command was run from:
 🇦 ~ `/home/cybert`
 
-## <p align="center">Task 4: Let’s see if you did anything bad</p>
+### <p align="center">Task 4: Let’s see if you did anything bad</p>
 
 “Keep going. Our disgruntled IT was supposed to only install a service on this computer, so look for commands that are unrelated to that.”
 
@@ -111,7 +111,7 @@ Immediately after, the logs show `vi` being used to open a script.
 🇦 ~ `bomb.sh`
 
 
-## <p align="center">Task 5: Bomb has been planted. But when and where?</p>
+### <p align="center">Task 5: Bomb has been planted. But when and where?</p>
 
 “That `bomb.sh` file is a huge red flag! While a file is already incriminating in itself, we still need to find out where it came from and what it contains. The problem is that the file does not exist anymore.”
 
@@ -155,7 +155,7 @@ Viewing the contents with `cat` revealed the planned file.
 
 🇦 ~ `goodbye.txt`
 
-## <p align="center">Task 6: Following the fuse</p>
+### <p align="center">Task 6: Following the fuse</p>
 
 “So we have a file and a motive. The question we now have is: how will this file be executed?
 
@@ -173,7 +173,7 @@ Unlike per-user crontabs (crontab -e), `/etc/crontab` is global and can run task
 
 🇦 ~ `08:00 AM`
 
-## <p align="center">Task 7: Conclusion</p> 
+### <p align="center">Task 7: Conclusion</p> 
 
 “Thanks to you, we now have a good idea of what our disgruntled IT person was planning.
 
