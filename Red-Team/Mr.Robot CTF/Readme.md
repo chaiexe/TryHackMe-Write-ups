@@ -19,17 +19,17 @@ Beginning with an Nmap scan on the target IP `10.10.29.14` revealed three open p
 - 80 (HTTP)
 - 443 (HTTPS)
 
-![Alt text](1)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Mr.Robot%20CTF/Images/Screenshot%201.png)
 
 Navigating to the IP address in a browser (`http://10.10.29.14`) led to a themed Mr.Robot terminal interface mimicking #fsociety. The terminal is lightly interactive, displaying a list of commands that provide a basic overview of the website.
 
-![Alt text](2)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Mr.Robot%20CTF/Images/Screenshot%202.png)
 
-![Alt text](3)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Mr.Robot%20CTF/Images/Screenshot%203.png)
 
 Using `gobuster` for directory enumeration uncovered several interesting paths. One that stood out was the `robots.txt` file, usually a good place to find hidden or sensitive directories.
 
-![Alt text](4)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Mr.Robot%20CTF/Images/Screenshot%204.png)
 
 <p align="center">+++++++++</p>
 
@@ -45,39 +45,39 @@ Websites use it to control how search engines index their content. For example, 
 
 The `robots.txt` file revealed two key things: a downloadable dictionary file and the room’s first key.
 
-![Alt text](5)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Mr.Robot%20CTF/Images/Screenshot%205.png)
 
 The `.dic` file was downloaded using the `wget` command. After that, the `curl` command was used to retrieve and view `key-1-of-3.txt`, successfully revealing the first key.
 
-![Alt text](6)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Mr.Robot%20CTF/Images/Screenshot%206.png)
 
 Next, `gobuster` was run again, this time using the newly downloaded dictionary file as a wordlist. This revealed several additional directories that weren’t discovered in the initial scan.
 
-![Alt text](7)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Mr.Robot%20CTF/Images/Screenshot%207.png)
 
 Reviewing each discovered directory, `/license` was the most intriguing as it included a Base64 encoded text located at the bottom of the page.
 
-![Alt text](8)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Mr.Robot%20CTF/Images/Screenshot%208.png)
 
 Using an online Base64 decoder, the encoded text was successfully converted into plain text, revealing a potential username and password combination.
 
-![Alt text](9)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Mr.Robot%20CTF/Images/Screenshot%209.png)
 
 Navigating to `http://10.10.29.14/login` redirected to the WordPress login page at `http://10.10.29.14/wp-login.php`. Logging in with the previously discovered credentials successfully granted access to the WordPress admin account for user Elliot.
 
-![Alt text](10)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Mr.Robot%20CTF/Images/Screenshot%2010.png)
 
 Investigating the admin’s account settings uncovered the user’s linked personal website. The website represents sensitive data an adversary could use to gather more information about a target or social engineer.
 
-![Alt text](11)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Mr.Robot%20CTF/Images/Screenshot%2011.png)
 
 A PHP reverse shell from Pentestmonkey was uploaded by embedding it into one of the theme’s template files through the Appearance > Editor > Templates section in WordPress.
 
-![Alt text](12)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Mr.Robot%20CTF/Images/Screenshot%2012.png)
 
 Accessing the modified `404.php` file triggered the reverse shell, which successfully connected back to the configured Netcat listener, providing a basic interactive shell.
 
-![Alt text](13)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Mr.Robot%20CTF/Images/Screenshot%2013.png)
 
 Privilege escalation was achieved by exploiting the vulnerable SUID binary located at `/usr/local/bin/nmap`. Using the interactive mode in this older version of Nmap allowed shell execution as root.
 
@@ -112,11 +112,11 @@ This is a known vulnerability in older Nmap versions like version < 5.21 that al
 
 <p align="center">+++++++++</p>
 
-![Alt text](14)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Mr.Robot%20CTF/Images/Screenshot%2014.png)
 
 Successfully completed the mission by gaining access to the final two keys, fully compromising the target machine!!
 
-![Alt text](15)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/Mr.Robot%20CTF/Images/Screenshot%2015.png)
 
 **Lessons Learned**
 
