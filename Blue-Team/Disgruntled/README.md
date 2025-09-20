@@ -52,7 +52,7 @@ sudo visudo
 ```
 **visudo** is a special command/ wrapper program, designed specifically for safely editing the `/etc/sudoers` file.
 
-It opens `/etc/sudoers` in your system’s default editor, like `nano` or vi`.
+It opens `/etc/sudoers` in your system’s default editor, like `nano` or `vi`.
 
 When you save and exit, it checks the file’s syntax before applying changes. If there’s an error, it warns you and won’t save the bad configuration.
 
