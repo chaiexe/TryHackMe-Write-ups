@@ -37,7 +37,7 @@ Opening the first TCP stream reveals a lot of telling information. The attacker 
 
 🇦 ~ `FTP`
 
-**Q3: There is a very popular tool by Van Hauser which can be used to brute force a series of services. What is the name of this tool? **
+**Q3: There is a very popular tool by Van Hauser which can be used to brute force a series of services. What is the name of this tool?**
 
 The TryHackMe hint points to Van Hauser’s GitHub (https://github.com/vanhauser-thc), which reveals the tool name.
 
