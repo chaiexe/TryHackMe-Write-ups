@@ -23,12 +23,12 @@ Beginning with an `nmap -sV` scan revealed 3 open ports:
 
 Due to the challenge being about a ransomware attack, there was no need to navigate to the webpage on port 80, as there wasn't anything there anyway.
 
-![Alt text](1)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/DarkMatter/Images/Screenshot%201.png)
 
 On the lab workstation appeared a timed ransomware note window left by the attackers named DarkMatter Gang which included that they wanted money in BTC along with a threat of permanent data loss.
 In the window is an input field for the decryption key, and since we are the specialists, the goal is to work out a way to get access to the decryption key to free the workstation.
 
-![Alt text](2)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/DarkMatter/Images/Screenshot%202.png)
 
 Opening up the terminal, I confirmed what directory I was currently in, navigated to the `/tmp` folder, and listed its contents.
 
@@ -40,7 +40,7 @@ Interesting found files:
 
 **Facts:** after gaining the private RSA key I should be able to decrypt the `.bin` file to obtain the AES key, which would allow me to decrypt the ransomware-encrypted files.
 
-![Alt text](3)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/DarkMatter/Images/Screenshot%203.png)
 
 Using the encrypted data from the `public_key.txt` file: 
 
@@ -61,21 +61,21 @@ q    18446744073709551557
 φ    340282366920938460807043460817592783792
 ```
 
-![Alt text](4)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/DarkMatter/Images/Screenshot%204.png)
 
 Since `d` (the private exponent) is `196442361873243903843228745541797845217`, that’s our ticket in.
 
 Now that we have the private key value, I used it to successfully unlock the system.
 
-![Alt text](5)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/DarkMatter/Images/Screenshot%205.png)
 
 Inserting the decryption key unlocked two school documents.
 
-![Alt text](6)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/DarkMatter/Images/Screenshot%206.png)
 
 The document `student_grades.docx` included the needed THM flag to complete the room!
 
-![Alt text](7)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/DarkMatter/Images/Screenshot%207.png)
 
 **Lessons Learned**
 
