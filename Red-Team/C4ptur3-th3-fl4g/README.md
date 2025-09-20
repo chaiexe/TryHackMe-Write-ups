@@ -88,29 +88,29 @@ This one looked insane at first, and I had no clue where to start. So I had to g
 
 A: `Let's make this a bit trickier…`
 
-![Alt text](1)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/C4ptur3-th3-fl4g/Images/Screenshot%201.png)
 
 **<p align="center">Task 2: Spectrograms</p>**
 
 This task involved an audio file with a hidden message, which could be translated using Sonic Visualiser.
 
-![Alt text](2)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/C4ptur3-th3-fl4g/Images/Screenshot%202.png)
 
 Following the instructions, I downloaded the file to my attack box and made it executable using the `chmod +x` command then launched the application.
 
-![Alt text](3)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/C4ptur3-th3-fl4g/Images/Screenshot%203.png)
 
 Within the application, I opened the audio file.
 
-![Alt text](4)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/C4ptur3-th3-fl4g/Images/Screenshot%204.png)
 
 Next, I right-clicked and added the spectrogram feature to the audio segment.
 
-![Alt text](5)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/C4ptur3-th3-fl4g/Images/Screenshot%205.png)
 
 Once applied, the hidden message was revealed, super cool!
 
-![Alt text](6)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/C4ptur3-th3-fl4g/Images/Screenshot%206.png)
 
 **<p align="center">Task 3: Steganography</p>**
 
@@ -126,7 +126,7 @@ cat steganopayload2248.txt
 ```
 revealed the answer to the task.
 
-![Alt text](7)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/C4ptur3-th3-fl4g/Images/Screenshot%207.png)
 
 **<p align="center">Task 4: Security through obscurity</p>**
 
@@ -138,7 +138,7 @@ cat Meme.jpeg
 ```
 revealed the final answers to the room!
 
-![Alt text](8)
+![Alt text](https://github.com/chaiexe/TryHackMe-Write-ups/blob/main/Red-Team/C4ptur3-th3-fl4g/Images/Screenshot%208.png)
 
 <p align="center">+</p>
 
